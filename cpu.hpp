@@ -33,7 +33,7 @@ struct CpuState<Program, size, size, Reg> {
 
 template<prog Program>
 struct Cpu {
-    using type = typename CpuState<
+    using run = typename CpuState<
                                 Program,
                                 Size<Program>::val,
                                 0,
