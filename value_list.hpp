@@ -7,6 +7,8 @@
 #ifndef TEMPLATEPROCESSOR_VALUE_LIST_HPP
 #define TEMPLATEPROCESSOR_VALUE_LIST_HPP
 
+#include <type_traits>
+
 #include "type_list.hpp"
 
 namespace static_stl::list {

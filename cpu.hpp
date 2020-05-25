@@ -31,13 +31,13 @@ struct CpuState<Program, size, size, Reg> {
     using val = Reg;
 };
 
-template<prog Program>
+template<prog Program, std::size_t NumRegs>
 struct Cpu {
     using run = typename CpuState<
                                 Program,
                                 Size<Program>::val,
                                 0,
-                                FillVal<16, int, 0>::type
+                                typename FillVal<NumRegs, int, 0>::type
                             >::val;
 };
 

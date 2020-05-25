@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "cpu.hpp"
 #include "util.hpp"
 
@@ -16,7 +14,7 @@ using test_prog =
 int main() {
     using list = FromVariadicVal<int, 0, 1, 0, 0, 0, 0, 0>::type;
 
-    using registers = Cpu<test_prog>::run;
+    using registers = Cpu<test_prog, 10>::run;
 
     registerPrinter<registers>::print();
     return 0;

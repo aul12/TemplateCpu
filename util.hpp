@@ -7,8 +7,9 @@
 #ifndef TEMPLATECPU_UTIL_HPP
 #define TEMPLATECPU_UTIL_HPP
 
-#include "cpu_types.hpp"
 #include <iostream>
+
+#include "cpu_types.hpp"
 
 template<reg Reg, std::size_t c>
 struct registerPrinterImpl {

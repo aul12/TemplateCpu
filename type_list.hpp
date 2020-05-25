@@ -7,6 +7,8 @@
 #ifndef TEMPLATEPROCESSOR_TYPE_LIST_HPP
 #define TEMPLATEPROCESSOR_TYPE_LIST_HPP
 
+#include <cstddef>
+
 namespace static_stl::list {
     template<typename T, typename next_>
     struct Type {
