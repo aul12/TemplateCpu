@@ -13,26 +13,8 @@
 template<std::size_t res, std::size_t a, std::size_t b>
 struct Add {};
 
-template<reg Registers, std::size_t res, std::size_t a, std::size_t b>
-struct AddImpl {
-    using type = typename SetVal<typename Registers::elem::type,
-                    Registers,
-                    res,
-                    GetVal<Registers, a>::val + GetVal<Registers, b>::val
-                >::type;
-};
-
 template<typename T, std::size_t res, std::size_t a, T b>
 struct AddI {};
-
-template<reg Registers, typename T, std::size_t res, std::size_t a, T b> requires value_list_of_type<T, Registers>
-struct AddIImpl {
-    using type = typename SetVal<typename Registers::elem::type,
-            Registers,
-            res,
-            GetVal<Registers, a>::val + b
-    >::type;
-};
 
 template<typename T>
 struct is_instruction {
@@ -62,13 +44,21 @@ struct InstrImpl {
 
 template<std::size_t res, std::size_t a, std::size_t b, type_list Registers, std::size_t PC_>
 struct InstrImpl<Add<res, a, b>, Registers, PC_> {
-    using Reg = typename AddImpl<Registers, res, a, b>::type;
+    using Reg = typename SetVal<typename Registers::elem::type,
+                        Registers,
+                        res,
+                        GetVal<Registers, a>::val + GetVal<Registers, b>::val
+                >::type;
     static constexpr auto PC = PC_ + 1;
 };
 
 template<typename T, std::size_t res, std::size_t a, T b, type_list Registers, std::size_t PC_>
 struct InstrImpl<AddI<T, res, a, b>, Registers, PC_> {
-    using Reg = typename AddIImpl<Registers, T, res, a, b>::type;
+    using Reg = typename SetVal<typename Registers::elem::type,
+                        Registers,
+                        res,
+                        GetVal<Registers, a>::val + b
+                >::type;
     static constexpr auto PC = PC_ + 1;
 };
 
