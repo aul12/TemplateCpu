@@ -20,4 +20,7 @@ concept reg = IsValueList<T>::val && ListOfType<base_type, T>::val;
 template<typename T>
 concept prog = IsTypeList<T>::val;
 
+template<typename...T>
+using Program = typename FromVariadicType<T...>::type;
+
 #endif //TEMPLATEPROCESSOR_CPU_TYPES_HPP
