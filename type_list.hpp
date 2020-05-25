@@ -101,6 +101,16 @@ namespace static_stl::list {
     struct FromVariadicType<T> {
         using type = Type<T, ListEnd>;
     };
+
+    template<std::size_t N, typename T>
+    struct FillType {
+        using type = Type<T, typename FillType<N-1, T>::type>;
+    };
+
+    template<typename T>
+    struct FillType<0, T> {
+        using type = Type<T, ListEnd>;
+    };
 }
 
 #endif //TEMPLATEPROCESSOR_TYPE_LIST_HPP

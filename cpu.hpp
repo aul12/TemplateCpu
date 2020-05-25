@@ -34,11 +34,10 @@ struct CpuState<Program, size, size, Reg> {
 template<prog Program>
 struct Cpu {
     using type = typename CpuState<
-                                //typename Reverse<Program>::type,
                                 Program,
                                 Size<Program>::val,
                                 0,
-                                FromVariadicVal<int, 0, 1, 0, 0, 0, 0, 0>::type
+                                FillVal<16, int, 0>::type
                             >::val;
 };
 

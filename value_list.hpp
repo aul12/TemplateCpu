@@ -81,6 +81,11 @@ namespace static_stl::list {
     struct FromVariadicVal<T, t> {
         using type = Type<ValueContainer<T, t>, ListEnd>;
     };
+
+    template<std::size_t N, typename T, T t>
+    struct FillVal {
+        using type = typename FillType<N, ValueContainer<T, t>>::type;
+    };
 }
 
 #endif //TEMPLATEPROCESSOR_VALUE_LIST_HPP
