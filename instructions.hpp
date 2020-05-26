@@ -27,6 +27,7 @@ struct BranchNEq {};
 template<typename T, Reg a, Reg b, T target>
 struct BranchNEqI {};
 
+
 template<typename T>
 struct is_instruction {
     static constexpr bool val = false;

@@ -29,6 +29,7 @@ enum class Reg {
     B,
     C,
     D,
+    E,
     LENGTH
 };
 
