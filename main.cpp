@@ -3,19 +3,13 @@
 
 using test_prog =
         Program<
-            AddI<int, 1, 0, 1>, // Add 1 to Reg-1
-            Add<2, 0, 1>, // Fibonacci Step 1: Reg2 = Reg0 + Reg1
-            Add<3, 1, 2>,
-            Add<4, 2, 3>,
-            Add<5, 3, 4>,
-            Add<6, 4, 5>
+            AddI<int, 1, 0, 1>,
+            BranchEqI<int, 0, 1, 0>
         >;
 
 int main() {
-    using list = FromVariadicVal<int, 0, 1, 0, 0, 0, 0, 0>::type;
-
-    using registers = Cpu<test_prog, 10>::run;
-
+    using registers = Cpu<test_prog, 3>::run;
     registerPrinter<registers>::print();
+
     return 0;
 }
