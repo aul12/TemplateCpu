@@ -23,4 +23,13 @@ concept prog = IsTypeList<T>::val;
 template<typename...T>
 using Program = typename FromVariadicType<T...>::type;
 
+enum class Reg {
+    ZERO,
+    A,
+    B,
+    C,
+    D,
+    LENGTH
+};
+
 #endif //TEMPLATEPROCESSOR_CPU_TYPES_HPP
