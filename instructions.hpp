@@ -27,7 +27,6 @@ struct BranchNEq {};
 template<typename T, Reg a, Reg b, T target>
 struct BranchNEqI {};
 
-
 template<typename T>
 struct is_instruction {
     static constexpr bool val = false;
@@ -144,5 +143,11 @@ struct InstrImpl<BranchNEqI<T, a, b, target>, Register, PC_> {
             target
     >::val;
 };
+
+
+// Pseudo instructions
+template<Reg a, Reg b>
+using Mov = AddI<base_type, a, b, 0>;
+
 
 #endif //TEMPLATEPROCESSOR_INSTRUCTIONS_HPP

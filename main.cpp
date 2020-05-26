@@ -9,8 +9,8 @@ using test_prog =
             AddI<int, Reg::D, Reg::ZERO, 0>, // 3: d = 0
             AddI<int, Reg::E, Reg::ZERO, 1>, // 4: e = 1
             AddI<int, Reg::B, Reg::B, 1>,    // 5: b += 1
-            AddI<int, Reg::C, Reg::D, 0>,    // 6: c = d
-            AddI<int, Reg::D, Reg::E, 0>,    // 7: d = e
+            Mov<Reg::C, Reg::D>,             // 6: c = d
+            Mov<Reg::D, Reg::E>,             // 7: d = e
             Add<Reg::E, Reg::C, Reg::D>,     // 8: e = c + d
             BranchNEqI<int, Reg::A, Reg::B, 5> // 9: if a != c -> jmp 5
         >;
