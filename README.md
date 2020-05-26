@@ -9,21 +9,24 @@ The assembly-syntax is heavily inspired by MIPS:
 #include "cpu.hpp"
 #include "util.hpp"
 
-using test_prog = // Test Prog is a type which is your program
+using test_prog =
         Program<
-            AddI<int, 1, 0, 1>, // AddImmediate 1 to Reg-1
-            Add<2, 0, 1>, // Fibonacci Step 1: Reg2 = Reg0 + Reg1
-            Add<3, 1, 2>,
-            Add<4, 2, 3>,
-            Add<5, 3, 4>,
-            Add<6, 4, 5>
+            AddI<int, Reg::A, Reg::ZERO, 40>,// 0: a = 40
+            AddI<int, Reg::B, Reg::ZERO, 1>, // 1: b = 1
+            AddI<int, Reg::C, Reg::ZERO, 0>, // 2: c = 0
+            AddI<int, Reg::D, Reg::ZERO, 0>, // 3: d = 0
+            AddI<int, Reg::E, Reg::ZERO, 1>, // 4: e = 1
+            AddI<int, Reg::B, Reg::B, 1>,    // 5: b += 1
+            AddI<int, Reg::C, Reg::D, 0>,    // 6: c = d
+            AddI<int, Reg::D, Reg::E, 0>,    // 7: d = e
+            Add<Reg::E, Reg::C, Reg::D>,     // 8: e = c + d
+            BranchNEqI<int, Reg::A, Reg::B, 5> // 9: if a != c -> jmp 5
         >;
 
 int main() {
-    using registers = Cpu<test_prog, 10>::run; // Run the program, with 10 registers. registers is a type with the registers after execution
+    using registers = Cpu<test_prog>::run;
+    registerPrinter<registers>::print();
 
-    registerPrinter<registers>::print(); // Print the register content, this is the only line that actually exists during execution
     return 0;
 }
-
 ```
