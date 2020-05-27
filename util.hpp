@@ -28,10 +28,10 @@ struct registerPrinterImpl<ListEnd, c> {
 template<Memory memory, std::size_t c>
 struct memoryPrinterImpl {
     static void print() {
-        if (c % 8 == 0 && c > 0) {
+        std::cout << std::setw(4) << GetVal<memory, 0>::val;
+        if (c % 8 == 7) {
             std::cout << std::endl;
         }
-        std::cout << std::setw(4) << GetVal<memory, 0>::val;
         memoryPrinterImpl<typename memory::next, c+1>::print();
     }
 };

@@ -111,7 +111,7 @@ namespace static_stl::list {
 
     template<typename T>
     struct FillType<0, T> {
-        using type = Type<T, ListEnd>;
+        using type = ListEnd;
     };
 }
 
