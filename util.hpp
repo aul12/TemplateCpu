@@ -11,11 +11,11 @@
 
 #include "cpu_types.hpp"
 
-template<reg Reg, std::size_t c>
+template<Registers registers, std::size_t c>
 struct registerPrinterImpl {
     static auto print() {
-        std::cout << c << ":\t" << GetVal<Reg, 0>::val << std::endl;
-        registerPrinterImpl<typename Reg::next, c+1>::print();
+        std::cout << c << ":\t" << GetVal<registers, 0>::val << std::endl;
+        registerPrinterImpl<typename registers::next, c+1>::print();
     }
 };
 
@@ -24,10 +24,10 @@ struct registerPrinterImpl<ListEnd, c> {
     static auto print() {}
 };
 
-template<reg Reg>
+template<Registers registers>
 struct registerPrinter {
     static auto print() {
-        registerPrinterImpl<Reg, 0>::print();
+        registerPrinterImpl<registers, 0>::print();
     }
 };
 

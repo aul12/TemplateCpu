@@ -10,36 +10,36 @@
 #include "cpu_types.hpp"
 #include "instructions.hpp"
 
-template<prog Program, std::size_t PC_, reg Registers, mem Mem_>
+template<Program program, std::size_t old_pc, Registers registers, Memory memory>
 struct ExecuteInstr {
-    static constexpr auto PC = InstrImpl<typename GetType<Program, PC_>::type, Registers, Mem_, PC_>::PC;
-    using Reg = typename InstrImpl<typename GetType<Program, PC_>::type, Registers, Mem_, PC_>::Reg;
-    using Mem = typename InstrImpl<typename GetType<Program, PC_>::type, Registers, Mem_, PC_>::Mem;
+    static constexpr auto PC = InstrImpl<typename GetType<program, old_pc>::type, registers, memory, old_pc>::PC;
+    using Reg = typename InstrImpl<typename GetType<program, old_pc>::type, registers, memory, old_pc>::Reg;
+    using Mem = typename InstrImpl<typename GetType<program, old_pc>::type, registers, memory, old_pc>::Mem;
 };
 
-template<prog Program, std::size_t size, std::size_t PC, reg Reg, mem Mem>
+template<Program program, std::size_t size, std::size_t PC, Registers registers, Memory memory>
 struct CpuState {
     using val = typename CpuState<
-                            Program,
+                            program,
                             size,
-                            ExecuteInstr<Program, PC, Reg, Mem>::PC,
-                            typename ExecuteInstr<Program, PC, Reg, Mem>::Reg,
-                            typename ExecuteInstr<Program, PC, Reg, Mem>::Mem
+                            ExecuteInstr<program, PC, registers, memory>::PC,
+                            typename ExecuteInstr<program, PC, registers, memory>::Reg,
+                            typename ExecuteInstr<program, PC, registers, memory>::Mem
                         >::val;
 };
 
-template<prog Program, std::size_t size, reg Reg, mem Mem>
-struct CpuState<Program, size, size, Reg, Mem> {
-    using val = Reg;
+template<Program program, std::size_t size, Registers registers, Memory memory>
+struct CpuState<program, size, size, registers, memory> {
+    using val = registers;
 };
 
-template<prog Program>
+template<Program Program>
 struct Cpu {
     using run = typename CpuState<
                                 Program,
                                 Size<Program>::val,
                                 0,
-                                typename FillVal<static_cast<std::size_t>(Reg::LENGTH), base_type, 0>::type,
+                                typename FillVal<static_cast<std::size_t>(Register::LENGTH), base_type, 0>::type,
                                 typename FillVal<MEM_SIZE, base_type, 0>::type
                             >::val;
 };

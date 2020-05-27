@@ -13,9 +13,9 @@
 using namespace static_stl::list;
 
 using base_type = int;
-constexpr auto MEM_SIZE = 128;
+constexpr auto MEM_SIZE = 1;
 
-enum class Reg {
+enum class Register {
         ZERO,
         A,
         B,
@@ -26,16 +26,16 @@ enum class Reg {
 };
 
 template<typename T>
-concept reg = IsValueList<T>::val && ListOfType<base_type, T>::val;
+concept Registers = IsValueList<T>::val && ListOfType<base_type, T>::val;
 
 template<typename T>
-concept mem = IsValueList<T>::val && ListOfType<base_type, T>::val;
+concept Memory = IsValueList<T>::val && ListOfType<base_type, T>::val;
 
 template<typename T>
-concept prog = IsTypeList<T>::val;
+concept Program = IsTypeList<T>::val;
 
 template<typename...T>
-using Program = typename FromVariadicType<T...>::type;
+using DeclareProgram = typename FromVariadicType<T...>::type;
 
 
 #endif //TEMPLATEPROCESSOR_CPU_TYPES_HPP
