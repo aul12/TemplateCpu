@@ -67,30 +67,29 @@ concept instruction = is_instruction<T>::val;
 
 
 // Implementations
-template<instruction Instr, type_list Registers, std::size_t PC_>
-struct InstrImpl {
-    using Reg = Registers;
-    static constexpr auto PC = PC_ + 1;
-};
+template<instruction Instr, reg Registers, mem Memory, std::size_t PC_>
+struct InstrImpl {};
 
-template<Reg res, Reg a, Reg b, type_list Registers, std::size_t PC_>
-struct InstrImpl<Add<res, a, b>, Registers, PC_> {
+template<Reg res, Reg a, Reg b, type_list Registers, mem Memory, std::size_t PC_>
+struct InstrImpl<Add<res, a, b>, Registers, Memory, PC_> {
     using Reg = typename SetVal<typename Registers::elem::type,
                         Registers,
                         static_cast<std::size_t>(res),
                         GetVal<Registers, static_cast<std::size_t>(a)>::val + GetVal<Registers, static_cast<std::size_t>(b)>::val
                 >::type;
     static constexpr auto PC = PC_ + 1;
+    using Mem = Memory;
 };
 
-template<typename T, Reg res, Reg a, T b, type_list Registers, std::size_t PC_>
-struct InstrImpl<AddI<T, res, a, b>, Registers, PC_> {
+template<typename T, Reg res, Reg a, T b, type_list Registers, mem Memory, std::size_t PC_>
+struct InstrImpl<AddI<T, res, a, b>, Registers, Memory, PC_> {
     using Reg = typename SetVal<typename Registers::elem::type,
                         Registers,
                         static_cast<std::size_t>(res),
                         GetVal<Registers, static_cast<std::size_t>(a)>::val + b
                 >::type;
     static constexpr auto PC = PC_ + 1;
+    using Mem = Memory;
 };
 
 
@@ -104,44 +103,48 @@ struct GetTarget<true, PC_, target> {
     static constexpr std::size_t val = target;
 };
 
-template<Reg a, Reg b, Reg target, type_list Register, std::size_t PC_>
-struct InstrImpl<BranchEq<a, b, target>, Register, PC_> {
+template<Reg a, Reg b, Reg target, type_list Register, mem Memory, std::size_t PC_>
+struct InstrImpl<BranchEq<a, b, target>, Register, Memory, PC_> {
     using Reg = Register;
     static constexpr std::size_t PC = GetTarget<
                                     GetVal<Register, static_cast<std::size_t>(a)>::val == GetVal<Register, static_cast<std::size_t>(b)>::val,
                                     PC_,
                                     GetVal<Register, static_cast<std::size_t>(target)>::val
                                 >::val;
+    using Mem = Memory;
 };
 
-template<typename T, Reg a, Reg b, T target, type_list Register, std::size_t PC_>
-struct InstrImpl<BranchEqI<T, a, b, target>, Register, PC_> {
+template<typename T, Reg a, Reg b, T target, type_list Register, mem Memory, std::size_t PC_>
+struct InstrImpl<BranchEqI<T, a, b, target>, Register, Memory, PC_> {
     using Reg = Register;
     static constexpr std::size_t PC = GetTarget<
                                     GetVal<Register, static_cast<std::size_t>(a)>::val == GetVal<Register, static_cast<std::size_t>(b)>::val,
                                     PC_,
                                     target
                                 >::val;
+    using Mem = Memory;
 };
 
-template<Reg a, Reg b, Reg target, type_list Register, std::size_t PC_>
-struct InstrImpl<BranchNEq<a, b, target>, Register, PC_> {
+template<Reg a, Reg b, Reg target, type_list Register, mem Memory, std::size_t PC_>
+struct InstrImpl<BranchNEq<a, b, target>, Register, Memory, PC_> {
     using Reg = Register;
     static constexpr std::size_t PC = GetTarget<
             GetVal<Register, static_cast<std::size_t>(a)>::val != GetVal<Register, static_cast<std::size_t>(b)>::val,
             PC_,
             GetVal<Register, static_cast<std::size_t>(target)>::val
     >::val;
+    using Mem = Memory;
 };
 
-template<typename T, Reg a, Reg b, T target, type_list Register, std::size_t PC_>
-struct InstrImpl<BranchNEqI<T, a, b, target>, Register, PC_> {
+template<typename T, Reg a, Reg b, T target, type_list Register, mem Memory, std::size_t PC_>
+struct InstrImpl<BranchNEqI<T, a, b, target>, Register, Memory, PC_> {
     using Reg = Register;
     static constexpr std::size_t PC = GetTarget<
             GetVal<Register, static_cast<std::size_t>(a)>::val != GetVal<Register, static_cast<std::size_t>(b)>::val,
             PC_,
             target
     >::val;
+    using Mem = Memory;
 };
 
 

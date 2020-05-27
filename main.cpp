@@ -1,7 +1,7 @@
 #include "cpu.hpp"
 #include "util.hpp"
 
-using test_prog =
+using fib_iterative =
         Program<
             AddI<int, Reg::A, Reg::ZERO, 40>,// 0: a = 40
             AddI<int, Reg::B, Reg::ZERO, 1>, // 1: b = 1
@@ -16,7 +16,7 @@ using test_prog =
         >;
 
 int main() {
-    using registers = Cpu<test_prog>::run;
+    using registers = Cpu<fib_iterative>::run;
     registerPrinter<registers>::print();
 
     return 0;
