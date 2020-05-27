@@ -28,7 +28,7 @@ struct registerPrinterImpl<ListEnd, c> {
 template<Memory memory, std::size_t c>
 struct memoryPrinterImpl {
     static void print() {
-        std::cout << std::setw(4) << GetVal<memory, 0>::val;
+        std::cout << std::setw(10) << GetVal<memory, 0>::val;
         if (c % 8 == 7) {
             std::cout << std::endl;
         }

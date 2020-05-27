@@ -25,10 +25,10 @@ struct BranchNEq {};
 template<typename T, Register a, Register b, T target>
 struct BranchNEqI {};
 
-template<std::size_t addr, Register reg>
+template<mem_ptr_type addr, Register reg>
 struct Store {};
 
-template<Register reg, std::size_t addr>
+template<Register reg, mem_ptr_type addr>
 struct Load {};
 
 template<typename T>

@@ -16,11 +16,15 @@ using fib_iterative =
             Store<0, Register::E>
         >;
 
+
 int main() {
     using result = Cpu<fib_iterative>::run;
     using printer = printer<result::Reg, result::Mem>;
 
+    std::cout << "Registers:" << std::endl;
     printer::reg();
+
+    std::cout << "\nMemory:" << std::endl;
     printer::mem();
 
     return 0;
