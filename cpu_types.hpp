@@ -13,7 +13,7 @@
 using namespace static_stl::list;
 
 using base_type = int;
-constexpr auto MEM_SIZE = 1;
+constexpr auto MEM_SIZE = 128;
 
 enum class Register {
         ZERO,

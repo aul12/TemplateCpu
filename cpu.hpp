@@ -10,6 +10,12 @@
 #include "cpu_types.hpp"
 #include "instructions.hpp"
 
+template<Registers registers, Memory memory>
+struct Result {
+    using Reg = registers;
+    using Mem = memory;
+};
+
 template<Program program, std::size_t old_pc, Registers registers, Memory memory>
 struct ExecuteInstr {
     static constexpr auto PC = InstrImpl<typename GetType<program, old_pc>::type, registers, memory, old_pc>::PC;
@@ -30,7 +36,7 @@ struct CpuState {
 
 template<Program program, std::size_t size, Registers registers, Memory memory>
 struct CpuState<program, size, size, registers, memory> {
-    using val = registers;
+    using val = Result<registers, memory>;
 };
 
 template<Program Program>

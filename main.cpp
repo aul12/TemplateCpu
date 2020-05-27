@@ -12,12 +12,16 @@ using fib_iterative =
             Mov<Register::C, Register::D>,             // 6: c = d
             Mov<Register::D, Register::E>,             // 7: d = e
             Add<Register::E, Register::C, Register::D>,// 8: e = c + d
-            BranchNEqI<int, Register::A, Register::B, 5> // 9: if a != c -> jmp 5
+            BranchNEqI<int, Register::A, Register::B, 5>, // 9: if a != c -> jmp 5
+            Store<0, Register::E>
         >;
 
 int main() {
-    using registers = Cpu<fib_iterative>::run;
-    registerPrinter<registers>::print();
+    using result = Cpu<fib_iterative>::run;
+    using printer = printer<result::Reg, result::Mem>;
+
+    printer::reg();
+    printer::mem();
 
     return 0;
 }

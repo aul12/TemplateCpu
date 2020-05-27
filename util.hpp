@@ -8,12 +8,13 @@
 #define TEMPLATECPU_UTIL_HPP
 
 #include <iostream>
+#include <iomanip>
 
 #include "cpu_types.hpp"
 
 template<Registers registers, std::size_t c>
 struct registerPrinterImpl {
-    static auto print() {
+    static void print() {
         std::cout << c << ":\t" << GetVal<registers, 0>::val << std::endl;
         registerPrinterImpl<typename registers::next, c+1>::print();
     }
@@ -21,13 +22,33 @@ struct registerPrinterImpl {
 
 template<std::size_t c>
 struct registerPrinterImpl<ListEnd, c> {
-    static auto print() {}
+    static void print() {}
 };
 
-template<Registers registers>
-struct registerPrinter {
-    static auto print() {
+template<Memory memory, std::size_t c>
+struct memoryPrinterImpl {
+    static void print() {
+        if (c % 8 == 0 && c > 0) {
+            std::cout << std::endl;
+        }
+        std::cout << std::setw(4) << GetVal<memory, 0>::val;
+        memoryPrinterImpl<typename memory::next, c+1>::print();
+    }
+};
+
+template<std::size_t c>
+struct memoryPrinterImpl<ListEnd, c> {
+    static void print() {}
+};
+
+template<Registers registers, Memory memory>
+struct printer {
+    static void reg() {
         registerPrinterImpl<registers, 0>::print();
+    }
+
+    static void mem() {
+        memoryPrinterImpl<memory, 0>::print();
     }
 };
 

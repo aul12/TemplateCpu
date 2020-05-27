@@ -25,7 +25,7 @@ using test_prog =
 
 int main() {
     using registers = Cpu<test_prog>::run;
-    registerPrinter<registers>::print();
+    printer<registers>::print();
 
     return 0;
 }
