@@ -97,6 +97,13 @@ struct InstrImpl<Store<addr, reg>, registers, memory, old_pc> {
     using Mem = typename SetVal<base_type, memory, addr, GetVal<registers, static_cast<std::size_t>(reg)>::type>::type;
 };
 
+template<Register reg, std::size_t addr, Registers registers, Memory memory, std::size_t old_pc>
+struct InstrImpl<Load<reg, addr>, registers, memory, old_pc> {
+    using Reg = typename SetVal<base_type, registers, static_cast<std::size_t>(reg), GetVal<memory, addr>::type>::type;
+    static constexpr std::size_t PC = old_pc + 1;
+    using Mem = memory;
+};
+
 
 // Pseudo instructions
 template<Register a, Register b>

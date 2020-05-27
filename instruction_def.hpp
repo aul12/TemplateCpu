@@ -28,6 +28,9 @@ struct BranchNEqI {};
 template<std::size_t addr, Register reg>
 struct Store {};
 
+template<Register reg, std::size_t addr>
+struct Load {};
+
 template<typename T>
 struct is_instruction {
     static constexpr bool val = false;
