@@ -25,11 +25,17 @@ struct BranchNEq {};
 template<typename T, Register a, Register b, T target>
 struct BranchNEqI {};
 
-template<mem_ptr_type addr, Register reg>
+template<Register addr_reg, Register reg>
 struct Store {};
 
-template<Register reg, mem_ptr_type addr>
+template<Register reg, Register addr_reg>
 struct Load {};
+
+template<mem_ptr_type addr, Register reg>
+struct StoreI {};
+
+template<Register reg, mem_ptr_type addr>
+struct LoadI {};
 
 template<typename T>
 struct is_instruction {
@@ -66,8 +72,13 @@ struct is_instruction<BranchNEqI<T, a, b, target>> {
     static constexpr bool val = true;
 };
 
-template<std::size_t addr, Register reg>
-struct is_instruction<Store<addr, reg>> {
+template<mem_ptr_type addr, Register reg>
+struct is_instruction<StoreI<addr, reg>> {
+    static constexpr bool val = true;
+};
+
+template<Register reg, mem_ptr_type addr>
+struct is_instruction<LoadI<reg, addr>> {
     static constexpr bool val = true;
 };
 

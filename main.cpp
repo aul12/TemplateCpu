@@ -13,7 +13,7 @@ using fib_iterative =
             Mov<Register::D, Register::E>,             // 7: d = e
             Add<Register::E, Register::C, Register::D>,// 8: e = c + d
             BranchNEqI<int, Register::A, Register::B, 5>, // 9: if a != c -> jmp 5
-            Store<0, Register::E>
+            StoreI<0, Register::E>
         >;
 
 

@@ -90,15 +90,41 @@ struct InstrImpl<BranchNEqI<T, a, b, target>, registers, memory, old_pc> {
     using Mem = memory;
 };
 
+template<Register addr_reg, Register reg, Registers registers, Memory memory, std::size_t old_pc>
+struct InstrImpl<Store<addr_reg, reg>, registers, memory, old_pc> {
+    using Reg = registers;
+    static constexpr std::size_t PC = old_pc + 1;
+    using Mem = typename SetVal<
+                            base_type,
+                            memory,
+                            GetVal<registers, static_cast<std::size_t>(addr_reg)>::val,
+                            GetVal<registers, static_cast<std::size_t>(reg)>::val
+                        >::type;
+};
+
+template<Register reg, Register addr_reg, Registers registers, Memory memory, std::size_t old_pc>
+struct InstrImpl<Load<reg, addr_reg>, registers, memory, old_pc> {
+    using Reg = typename SetVal<
+                            base_type,
+                            registers,
+                            static_cast<std::size_t>(reg),
+                            GetVal<memory,
+                                GetVal<registers, static_cast<std::size_t>(addr_reg)>::val
+                            >::val
+                        >::type;
+    static constexpr std::size_t PC = old_pc + 1;
+    using Mem = memory;
+};
+
 template<mem_ptr_type addr, Register reg, Registers registers, Memory memory, std::size_t old_pc>
-struct InstrImpl<Store<addr, reg>, registers, memory, old_pc> {
+struct InstrImpl<StoreI<addr, reg>, registers, memory, old_pc> {
     using Reg = registers;
     static constexpr std::size_t PC = old_pc + 1;
     using Mem = typename SetVal<base_type, memory, addr, GetVal<registers, static_cast<std::size_t>(reg)>::val>::type;
 };
 
 template<Register reg, mem_ptr_type addr, Registers registers, Memory memory, std::size_t old_pc>
-struct InstrImpl<Load<reg, addr>, registers, memory, old_pc> {
+struct InstrImpl<LoadI<reg, addr>, registers, memory, old_pc> {
     using Reg = typename SetVal<base_type, registers, static_cast<std::size_t>(reg), GetVal<memory, addr>::val>::type;
     static constexpr std::size_t PC = old_pc + 1;
     using Mem = memory;
