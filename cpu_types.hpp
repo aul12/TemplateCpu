@@ -25,6 +25,7 @@ enum class Register {
         D,
         E,
         STACK_PTR,
+        RET,
         LENGTH
 };
 

@@ -13,6 +13,24 @@ struct Add {};
 template<typename T, Register res, Register a, T b>
 struct AddI {};
 
+template<Register res, Register a, Register b>
+struct Less {};
+
+template<typename T, Register res, Register a, T b>
+struct LessI {};
+
+template<Register res, Register a, Register b>
+struct Greater {};
+
+template<Register reg>
+struct Jump {};
+
+template<typename T, T val>
+struct JumpI{};
+
+template<typename T, Register res, Register a, T b>
+struct GreaterI {};
+
 template<Register a, Register b, Register target>
 struct BranchEq {};
 
@@ -51,6 +69,27 @@ template<typename T, Register res, Register a, T b>
 struct is_instruction<AddI<T, res, a, b>> {
     static constexpr bool val = true;
 };
+
+template<Register res, Register a, Register b>
+struct is_instruction<Less<res, a, b>> {
+    static constexpr bool val = true;
+};
+
+template<typename T, Register res, Register a, T b>
+struct is_instruction<LessI<T, res, a, b>> {
+    static constexpr bool val = true;
+};
+
+template<Register res, Register a, Register b>
+struct is_instruction<Greater<res, a, b>> {
+    static constexpr bool val = true;
+};
+
+template<typename T, Register res, Register a, T b>
+struct is_instruction<GreaterI<T, res, a, b>> {
+    static constexpr bool val = true;
+};
+
 
 template<Register a, Register b, Register target>
 struct is_instruction<BranchEq<a, b, target>> {

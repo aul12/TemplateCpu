@@ -29,12 +29,69 @@ struct InstrImpl<AddI<T, res, a, b>, registers, memory, old_pc> {
     using Reg = typename SetVal<typename registers::elem::type,
                         registers,
                         static_cast<std::size_t>(res),
-            GetVal<registers, static_cast<std::size_t>(a)>::val + b
+                        GetVal<registers, static_cast<std::size_t>(a)>::val + b
                 >::type;
     static constexpr auto PC = old_pc + 1;
     using Mem = memory;
 };
 
+template<Register res, Register a, Register b, Registers registers, Memory memory, std::size_t old_pc>
+struct InstrImpl<Less<res, a, b>, registers, memory, old_pc> {
+    using Reg = typename SetVal<typename registers::elem::type,
+                        registers,
+                        static_cast<std::size_t>(res),
+                        GetVal<registers, static_cast<std::size_t>(a)>::val < GetVal<registers, static_cast<std::size_t>(b)>::val
+                    >::type;
+    static constexpr auto PC = old_pc + 1;
+    using Mem = memory;
+};
+
+template<typename T, Register res, Register a, T b, Registers registers, Memory memory, std::size_t old_pc>
+struct InstrImpl<LessI<T, res, a, b>, registers, memory, old_pc> {
+    using Reg = typename SetVal<typename registers::elem::type,
+            registers,
+            static_cast<std::size_t>(res),
+            GetVal<registers, static_cast<std::size_t>(a)>::val < b
+    >::type;
+    static constexpr auto PC = old_pc + 1;
+    using Mem = memory;
+};
+
+template<Register res, Register a, Register b, Registers registers, Memory memory, std::size_t old_pc>
+struct InstrImpl<Greater<res, a, b>, registers, memory, old_pc> {
+    using Reg = typename SetVal<typename registers::elem::type,
+            registers,
+            static_cast<std::size_t>(res),
+            GetVal<registers, static_cast<std::size_t>(b)>::val < GetVal<registers, static_cast<std::size_t>(a)>::val
+    >::type;
+    static constexpr auto PC = old_pc + 1;
+    using Mem = memory;
+};
+
+template<typename T, Register res, Register a, T b, Registers registers, Memory memory, std::size_t old_pc>
+struct InstrImpl<GreaterI<T, res, a, b>, registers, memory, old_pc> {
+    using Reg = typename SetVal<typename registers::elem::type,
+            registers,
+            static_cast<std::size_t>(res),
+            b < GetVal<registers, static_cast<std::size_t>(a)>::val
+    >::type;
+    static constexpr auto PC = old_pc + 1;
+    using Mem = memory;
+};
+
+template<Register res, Registers registers, Memory memory, std::size_t old_pc>
+struct InstrImpl<Jump<res>, registers, memory, old_pc> {
+    using Reg = registers;
+    static constexpr std::size_t PC = GetVal<registers, static_cast<std::size_t>(res)>::val;
+    using Mem = memory;
+};
+
+template<typename T, T val, Registers registers, Memory memory, std::size_t old_pc>
+struct InstrImpl<JumpI<T, val>, registers, memory, old_pc> {
+    using Reg = registers;
+    static constexpr std::size_t PC = val;
+    using Mem = memory;
+};
 
 template<bool cond, std::size_t PC, std::size_t target>
 struct GetTarget {
