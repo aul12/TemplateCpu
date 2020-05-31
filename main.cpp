@@ -72,8 +72,12 @@ using fib_recursive =
 
 
 int main() {
-    using result = Cpu<fib_iterative>::run;
+    using result = Cpu<fib_recursive>::run;
     using printer = printer<result::Reg, result::Mem>;
+
+    if constexpr (result::is_breakpoint) {
+        std::cout << "Stopped at breakpoint (PC=" << result::PC << ")" << std::endl;
+    }
 
     std::cout << "Exectuted " << result::instr_count << " instructions\n" << std::endl;
     std::cout << "Registers:" << std::endl;

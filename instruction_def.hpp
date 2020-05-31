@@ -121,6 +121,27 @@ struct is_instruction<LoadI<reg, addr>> {
     static constexpr bool val = true;
 };
 
+template<Register addr, Register reg>
+struct is_instruction<Store<addr, reg>> {
+    static constexpr bool val = true;
+};
+
+template<Register reg, Register addr>
+struct is_instruction<Load<reg, addr>> {
+    static constexpr bool val = true;
+};
+
+template<Register reg>
+struct is_instruction<Jump<reg>> {
+    static constexpr bool val = true;
+};
+
+template<typename T, T reg>
+struct is_instruction<JumpI<T, reg>> {
+    static constexpr bool val = true;
+};
+
+
 template<typename T>
 concept instruction = is_instruction<T>::val;
 
