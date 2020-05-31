@@ -24,12 +24,12 @@ using fib_iterative =
 using fib_recursive =
         DeclareProgram<
             // Init
-            AddI<int, Register::A, Register::ZERO, 2>, //0: a = 2
+            AddI<int, Register::A, Register::ZERO, 5>, //0: set max value
 
             // Check if base
             GreaterI<int, Register::B, Register::A, 3>, //1: b = (a > 3)
-            BranchEqI<int, Register::ZERO, Register::B, 4>, //2: if a > 3 -> jmp LABEL_1
-            BranchNEqI<int, Register::ZERO, Register::B, 28>, //3: else -> jmp LABEL_2
+            BranchNEqI<int, Register::ZERO, Register::B, 4>, //2: if a > 3 -> jmp LABEL_1
+            BranchEqI<int, Register::ZERO, Register::B, 28>, //3: else -> jmp LABEL_2
 
             // Build up stack
             Store<Register::STACK_PTR, Register::STACK_PTR>, //4: LABEL_1 (recursion) push STACK_PTR to stack
@@ -72,14 +72,14 @@ using fib_recursive =
 
 
 int main() {
-    using result = Cpu<fib_recursive>::run;
+    using result = CpuDebug<fib_recursive, 1000>::run;
     using printer = printer<result::Reg, result::Mem>;
 
     if constexpr (result::is_breakpoint) {
         std::cout << "Stopped at breakpoint (PC=" << result::PC << ")" << std::endl;
     }
 
-    std::cout << "Exectuted " << result::instr_count << " instructions\n" << std::endl;
+    std::cout << "Executed " << result::instr_count << " instructions\n" << std::endl;
     std::cout << "Registers:" << std::endl;
     printer::reg();
 

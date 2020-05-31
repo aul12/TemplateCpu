@@ -12,10 +12,26 @@
 
 #include "cpu_types.hpp"
 
+#define TO_NAME(a) case Register::a: return #a;
+
+auto getRegisterName(Register reg) -> std::string {
+    switch (reg) {
+        TO_NAME(ZERO)
+        TO_NAME(A)
+        TO_NAME(B)
+        TO_NAME(C)
+        TO_NAME(D)
+        TO_NAME(E)
+        TO_NAME(STACK_PTR)
+        TO_NAME(RET)
+        default: return "ERROR";
+    }
+}
+
 template<Registers registers, std::size_t c>
 struct registerPrinterImpl {
     static void print() {
-        std::cout << c << ":\t" << GetVal<registers, 0>::val << std::endl;
+        std::cout << getRegisterName(static_cast<Register>(c)) << " (" << c << "):\t" << GetVal<registers, 0>::val << std::endl;
         registerPrinterImpl<typename registers::next, c+1>::print();
     }
 };
