@@ -10,10 +10,11 @@
 #include "cpu_types.hpp"
 #include "instructions.hpp"
 
-template<Registers registers, Memory memory>
+template<Registers registers, Memory memory, std::size_t instr_count_>
 struct Result {
     using Reg = registers;
     using Mem = memory;
+    static constexpr auto instr_count = instr_count_;
 };
 
 template<Program program, std::size_t old_pc, Registers registers, Memory memory>
@@ -23,20 +24,21 @@ struct ExecuteInstr {
     using Mem = typename InstrImpl<typename GetType<program, old_pc>::type, registers, memory, old_pc>::Mem;
 };
 
-template<Program program, std::size_t size, std::size_t PC, Registers registers, Memory memory>
+template<Program program, std::size_t size, std::size_t PC, Registers registers, Memory memory, std::size_t instr_count>
 struct CpuState {
     using val = typename CpuState<
                             program,
                             size,
                             ExecuteInstr<program, PC, registers, memory>::PC,
                             typename ExecuteInstr<program, PC, registers, memory>::Reg,
-                            typename ExecuteInstr<program, PC, registers, memory>::Mem
+                            typename ExecuteInstr<program, PC, registers, memory>::Mem,
+                            instr_count + 1
                         >::val;
 };
 
-template<Program program, std::size_t size, Registers registers, Memory memory>
-struct CpuState<program, size, size, registers, memory> {
-    using val = Result<registers, memory>;
+template<Program program, std::size_t size, Registers registers, Memory memory, std::size_t instr_count>
+struct CpuState<program, size, size, registers, memory, instr_count> {
+    using val = Result<registers, memory, instr_count>;
 };
 
 template<Program Program>
@@ -46,7 +48,8 @@ struct Cpu {
                                 Size<Program>::val,
                                 0,
                                 typename FillVal<static_cast<std::size_t>(Register::LENGTH), base_type, 0>::type,
-                                typename FillVal<MEM_SIZE, base_type, 0>::type
+                                typename FillVal<MEM_SIZE, base_type, 0>::type,
+                                0
                             >::val;
 };
 
