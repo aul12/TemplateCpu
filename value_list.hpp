@@ -74,6 +74,11 @@ namespace static_stl::list {
         using type = typename SetType<ValueContainer<T, val>, List, index>::type;
     };
 
+    template<typename T, T val_, value_list list>
+    struct ContainsVal {
+        static constexpr auto val = ContainsType<ValueContainer<T, val_>, list>::val;
+    };
+
     template<typename T, T t, T... ts>
     struct FromVariadicVal {
         using type = Type<ValueContainer<T, t>, typename FromVariadicVal<T, ts...>::type>;

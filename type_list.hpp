@@ -72,6 +72,16 @@ namespace static_stl::list {
         using type = typename PrependType<T, typename List::next>::type;
     };
 
+    template<typename T, type_list List>
+    struct ContainsType {
+        static constexpr auto val = std::is_same<T, typename List::elem>::value || Contains<T, typename List::next>::val;
+    };
+
+    template<typename T>
+    struct ContainsType<T, ListEnd> {
+        static constexpr auto val = false;
+    };
+
     template<type_list List, std::size_t steps>
     struct ReverseImpl {
         using type = typename PrependType<
