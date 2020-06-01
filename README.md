@@ -15,8 +15,17 @@ As an example there are two versions of a program to calculate the n-th fibonacc
 There are some utility functions to help debugging the Template-assembly code.
 A basic framework which shows some debug information looks like this:
 ```c++
+#include "cpu.hpp"
+#include "util.hpp"
+
+using my_program = 
+        DeclareProgram<
+            INSTRUCTIONS_HERE      
+        >;
+
+
 int main() {
-    using result = Cpu<YOUR_PROGRA_TYPE>::run;
+    using result = Cpu<my_program>::run;
     using printer = printer<result::Reg, result::Mem>;
 
     if constexpr (result::is_breakpoint) {
@@ -89,9 +98,6 @@ fib(8);
 
 In template assembly the code looks like this:
 ```c++
-#include "cpu.hpp"
-#include "util.hpp"
-
 /*
  * Stack Layout
  * STACK_PTR, RET, ARG, RES1 = FIB(ARG-1), ...
@@ -145,7 +151,4 @@ using fib_recursive =
             // Return
             Jump<Register::RET>                                     //30: LABEL_3, return
         >;
-
-
-
 ```
