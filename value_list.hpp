@@ -64,12 +64,12 @@ namespace static_stl::list {
         static constexpr auto val = GetType<List, index>::type::val;
     };
 
-    template<typename T, type_list List, T val>
+    template<typename T, value_list List, T val>
     struct PrependVal {
         using type = typename PrependType<ValueContainer<T, val>, List>::type;
     };
 
-    template<typename T, type_list List, std::size_t index, T val> requires value_list_of_type<T, List>
+    template<typename T, value_list List, std::size_t index, T val> requires value_list_of_type<T, List>
     struct SetVal {
         using type = typename SetType<ValueContainer<T, val>, List, index>::type;
     };
