@@ -4,6 +4,22 @@ The emulator can execute arbitrary programs written in Template-assembly (which
 is the C++ type system), under the limitations of the compiler.
 This proves the touring-completeness of the C++-Type-System.
 
+## Build Instructions
+### Compiler
+You need a C++-Compiler with support for Concepts (i.e. C++-20), for example:
+ * GCC >= 9
+ * Clang >= 10
+ 
+### Building
+The project is a cmake project, for building execute (in the root directory of the repo):
+```shell script
+mkdir build
+cd build
+cmake ..
+make
+```
+now there is an executable `TemplateCpu`.
+
 ## Syntax
 The syntax is pure C++, with classes which behave like instructions, see the examples
 below for more information on Template-Assembly.
