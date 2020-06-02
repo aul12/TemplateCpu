@@ -2,7 +2,7 @@
 Implementing a CPU emulator using C++ Meta Programming with Concepts.
 The emulator can execute arbitrary programs written in Template-assembly (which
 is the C++ type system), under the limitations of the compiler.
-This proves the touring-completeness of the C++-Type-System.
+This proves the turing-completeness of the C++-Type-System.
 
 ## Syntax
 The syntax is pure C++, with classes which behave like instructions, see the examples
