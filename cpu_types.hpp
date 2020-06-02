@@ -38,7 +38,7 @@ concept Memory = IsValueList<T>::val && ListOfType<base_type, T>::val;
 template<typename T>
 concept Program = IsTypeList<T>::val;
 
-template<typename...T>
+template<typename ...T>
 using DeclareProgram = typename FromVariadicType<T...>::type;
 
 

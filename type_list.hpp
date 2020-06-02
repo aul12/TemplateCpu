@@ -74,7 +74,7 @@ namespace static_stl::list {
 
     template<typename T, type_list List>
     struct ContainsType {
-        static constexpr auto val = std::is_same<T, typename List::elem>::value || Contains<T, typename List::next>::val;
+        static constexpr auto val = std::is_same<T, typename List::elem>::value || ContainsType<T, typename List::next>::val;
     };
 
     template<typename T>

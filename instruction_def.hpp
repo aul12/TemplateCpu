@@ -7,6 +7,8 @@
 #ifndef TEMPLATECPU_INSTRUCTION_DEF_HPP
 #define TEMPLATECPU_INSTRUCTION_DEF_HPP
 
+#include "cpu_types.hpp"
+
 template<Register res, Register a, Register b>
 struct Add {};
 
