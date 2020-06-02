@@ -7,39 +7,13 @@
 #ifndef TEMPLATEPROCESSOR_CPU_TYPES_HPP
 #define TEMPLATEPROCESSOR_CPU_TYPES_HPP
 
-#include "value_list.hpp"
-#include "type_list.hpp"
-
-using namespace static_stl::list;
-
-using base_type = int;
-using mem_ptr_type = std::size_t;
-
-constexpr auto MEM_SIZE = 32;
-
-enum class Register {
-        ZERO,
-        A,
-        B,
-        C,
-        D,
-        E,
-        STACK_PTR,
-        RET,
-        LENGTH
-};
+#include "config.hpp"
 
 template<typename T>
 concept Registers = IsValueList<T>::val && ListOfType<base_type, T>::val;
 
 template<typename T>
 concept Memory = IsValueList<T>::val && ListOfType<base_type, T>::val;
-
-template<typename T>
-concept Program = IsTypeList<T>::val;
-
-template<typename ...T>
-using DeclareProgram = typename FromVariadicType<T...>::type;
 
 
 #endif //TEMPLATEPROCESSOR_CPU_TYPES_HPP

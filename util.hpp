@@ -10,20 +10,20 @@
 #include <iostream>
 #include <iomanip>
 
-#include "cpu_types.hpp"
+#include "config.hpp"
 
-#define TO_NAME(a) case Register::a: return #a;
+#define ADD_CASE(a) case Register::a: return #a;
 
 auto getRegisterName(Register reg) -> std::string {
     switch (reg) {
-        TO_NAME(ZERO)
-        TO_NAME(A)
-        TO_NAME(B)
-        TO_NAME(C)
-        TO_NAME(D)
-        TO_NAME(E)
-        TO_NAME(STACK_PTR)
-        TO_NAME(RET)
+        ADD_CASE(ZERO)
+        ADD_CASE(A)
+        ADD_CASE(B)
+        ADD_CASE(C)
+        ADD_CASE(D)
+        ADD_CASE(E)
+        ADD_CASE(STACK_PTR)
+        ADD_CASE(RET)
         default: return "ERROR";
     }
 }

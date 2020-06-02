@@ -7,8 +7,14 @@
 #ifndef TEMPLATEPROCESSOR_CPU_HPP
 #define TEMPLATEPROCESSOR_CPU_HPP
 
-#include "cpu_types.hpp"
 #include "instructions.hpp"
+
+template<typename T>
+concept Program = IsTypeList<T>::val;
+
+template<instruction ... instructions>
+using DeclareProgram = typename FromVariadicType<instructions...>::type;
+
 
 template<Registers registers, Memory memory, std::size_t PC_, std::size_t instr_count_, bool breakpoint>
 struct Result {
