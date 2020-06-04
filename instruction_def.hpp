@@ -34,6 +34,24 @@ template<typename T, Register res, Register a, T b>
 struct DivI {};
 
 template<Register res, Register a, Register b>
+struct And {};
+
+template<typename T, Register res, Register a, T b>
+struct AndI {};
+
+template<Register res, Register a, Register b>
+struct Or {};
+
+template<typename T, Register res, Register a, T b>
+struct OrI {};
+
+template<Register res, Register a, Register b>
+struct XOr {};
+
+template<typename T, Register res, Register a, T b>
+struct XOrI {};
+
+template<Register res, Register a, Register b>
 struct Less {};
 
 template<typename T, Register res, Register a, T b>
@@ -108,6 +126,7 @@ template<typename T, Register res, Register a, T b>
 struct is_instruction<MulI<T, res, a, b>> {
     static constexpr bool val = true;
 };
+
 template<Register res, Register a, Register b>
 struct is_instruction<Div<res, a, b>> {
     static constexpr bool val = true;
@@ -115,6 +134,36 @@ struct is_instruction<Div<res, a, b>> {
 
 template<typename T, Register res, Register a, T b>
 struct is_instruction<DivI<T, res, a, b>> {
+    static constexpr bool val = true;
+};
+
+template<Register res, Register a, Register b>
+struct is_instruction<And<res, a, b>> {
+    static constexpr bool val = true;
+};
+
+template<typename T, Register res, Register a, T b>
+struct is_instruction<AndI<T, res, a, b>> {
+    static constexpr bool val = true;
+};
+
+template<Register res, Register a, Register b>
+struct is_instruction<Or<res, a, b>> {
+    static constexpr bool val = true;
+};
+
+template<typename T, Register res, Register a, T b>
+struct is_instruction<OrI<T, res, a, b>> {
+    static constexpr bool val = true;
+};
+
+template<Register res, Register a, Register b>
+struct is_instruction<XOr<res, a, b>> {
+    static constexpr bool val = true;
+};
+
+template<typename T, Register res, Register a, T b>
+struct is_instruction<XOrI<T, res, a, b>> {
     static constexpr bool val = true;
 };
 
