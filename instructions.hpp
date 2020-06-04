@@ -9,6 +9,7 @@
 
 #include "cpu_types.hpp"
 #include "instruction_def.hpp"
+#include "instruction_util.hpp"
 
 template<instruction Instr, Registers Registers, Memory Memory, std::size_t PC_>
 struct InstrImpl {};
@@ -31,6 +32,72 @@ struct InstrImpl<AddI<T, res, a, b>, registers, memory, old_pc> {
                         static_cast<std::size_t>(res),
                         GetVal<registers, static_cast<std::size_t>(a)>::val + b
                 >::type;
+    static constexpr auto PC = old_pc + 1;
+    using Mem = memory;
+};
+
+template<Register res, Register a, Register b, Registers registers, Memory memory, std::size_t old_pc>
+struct InstrImpl<Sub<res, a, b>, registers, memory, old_pc> {
+    using Reg = typename SetVal<typename registers::elem::type,
+            registers,
+            static_cast<std::size_t>(res),
+            GetVal<registers, static_cast<std::size_t>(a)>::val - GetVal<registers, static_cast<std::size_t>(b)>::val
+    >::type;
+    static constexpr auto PC = old_pc + 1;
+    using Mem = memory;
+};
+
+template<typename T, Register res, Register a, T b, Registers registers, Memory memory, std::size_t old_pc>
+struct InstrImpl<SubI<T, res, a, b>, registers, memory, old_pc> {
+    using Reg = typename SetVal<typename registers::elem::type,
+            registers,
+            static_cast<std::size_t>(res),
+            GetVal<registers, static_cast<std::size_t>(a)>::val - b
+    >::type;
+    static constexpr auto PC = old_pc + 1;
+    using Mem = memory;
+};
+
+template<Register res, Register a, Register b, Registers registers, Memory memory, std::size_t old_pc>
+struct InstrImpl<Mul<res, a, b>, registers, memory, old_pc> {
+    using Reg = typename SetVal<typename registers::elem::type,
+            registers,
+            static_cast<std::size_t>(res),
+            GetVal<registers, static_cast<std::size_t>(a)>::val * GetVal<registers, static_cast<std::size_t>(b)>::val
+    >::type;
+    static constexpr auto PC = old_pc + 1;
+    using Mem = memory;
+};
+
+template<typename T, Register res, Register a, T b, Registers registers, Memory memory, std::size_t old_pc>
+struct InstrImpl<MulI<T, res, a, b>, registers, memory, old_pc> {
+    using Reg = typename SetVal<typename registers::elem::type,
+            registers,
+            static_cast<std::size_t>(res),
+            GetVal<registers, static_cast<std::size_t>(a)>::val * b
+    >::type;
+    static constexpr auto PC = old_pc + 1;
+    using Mem = memory;
+};
+
+template<Register res, Register a, Register b, Registers registers, Memory memory, std::size_t old_pc>
+struct InstrImpl<Div<res, a, b>, registers, memory, old_pc> {
+    using Reg = typename SetVal<typename registers::elem::type,
+            registers,
+            static_cast<std::size_t>(res),
+            DivWithException<base_type, GetVal<registers, static_cast<std::size_t>(a)>::val, GetVal<registers, static_cast<std::size_t>(b)>::val>::val
+    >::type;
+    static constexpr auto PC = old_pc + 1;
+    using Mem = memory;
+};
+
+template<typename T, Register res, Register a, T b, Registers registers, Memory memory, std::size_t old_pc>
+struct InstrImpl<DivI<T, res, a, b>, registers, memory, old_pc> {
+    using Reg = typename SetVal<typename registers::elem::type,
+            registers,
+            static_cast<std::size_t>(res),
+            DivWithException<T, GetVal<registers, static_cast<std::size_t>(a)>::val, b>::val
+    >::type;
     static constexpr auto PC = old_pc + 1;
     using Mem = memory;
 };
@@ -91,16 +158,6 @@ struct InstrImpl<JumpI<T, val>, registers, memory, old_pc> {
     using Reg = registers;
     static constexpr std::size_t PC = val;
     using Mem = memory;
-};
-
-template<bool cond, std::size_t PC, std::size_t target>
-struct GetTarget {
-    static constexpr std::size_t val = PC+1;
-};
-
-template<std::size_t PC, std::size_t target>
-struct GetTarget<true, PC, target> {
-    static constexpr std::size_t val = target;
 };
 
 template<Register a, Register b, Register target, Registers registers, Memory memory, std::size_t old_pc>
