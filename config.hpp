@@ -15,7 +15,7 @@ using namespace static_stl::list;
 using base_type = int;
 using mem_ptr_type = std::size_t;
 
-constexpr auto MEM_SIZE = 32;
+constexpr auto MEM_SIZE = 512;
 
 enum class Register {
         ZERO,
@@ -24,6 +24,9 @@ enum class Register {
         C,
         D,
         E,
+        F,
+        G,
+        H,
         STACK_PTR,
         RET,
         LENGTH

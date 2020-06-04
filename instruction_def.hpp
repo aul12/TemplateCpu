@@ -60,14 +60,14 @@ struct LessI {};
 template<Register res, Register a, Register b>
 struct Greater {};
 
+template<typename T, Register res, Register a, T b>
+struct GreaterI {};
+
 template<Register reg>
 struct Jump {};
 
 template<typename T, T val>
 struct JumpI{};
-
-template<typename T, Register res, Register a, T b>
-struct GreaterI {};
 
 template<Register a, Register b, Register target>
 struct BranchEq {};

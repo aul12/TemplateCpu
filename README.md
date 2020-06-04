@@ -24,6 +24,28 @@ now there is an executable `TemplateCpu`.
 The syntax is pure C++, with classes which behave like instructions, see the examples
 below for more information on Template-Assembly.
 
+### Instructions
+Below are all supported instructions, for most instructions there is also
+an Immediate version, denoted by an "I" at the end (so Add-Immediate is `AddI`),
+which takes a constant literal instead of a register as argument.
+
+| Name        | Description                          | C++-Equivalent            |
+| ----------- | ------------------------------------ | ------------------------- |
+| `Add`       | Add                                  | `res = a+b`               |
+| `Sub`       | Subtract                             | `res = a-b`               |
+| `Mul`       | Multiply                             | `res = a*b`               |
+| `Div`       | Divide (Exception at divide by zero) | `res = a/b`               |
+| `And`       | Bitwise And                          | `res = a & b`             |
+| `Or`        | Bitwise Or                           | `res = a \| b`            |
+| `XOr`       | Bitwise Exclusive-Or                 | `res = a ^ b`             |
+| `Less`      | Smaller comparison                   | `res = a < b`             |
+| `Greater`   | Greater comparison                   | `res = a > b`             |
+| `Jump`      | Jump to address in program           | `goto reg`                |
+| `BranchEq`  | Branch/Jump if equal                 | `if (a == b) {goto reg;}` |
+| `BranchNEq` | Branch/Jump if not equal             | `if (a != b) {goto reg;}` |
+| `Store`     | Store register to memory             | `*addr_reg = reg`         |
+| `Load`      | Load from memory into register       | `reg = *addr_reg`         |
+
 ### Examples
 As an example there are two versions of a program to calculate the n-th fibonacci number.
 
