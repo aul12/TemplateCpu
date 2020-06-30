@@ -21,4 +21,4 @@ endif()
 
 # Uncomment for larger programs, be careful with the maximum depth,
 # GCC will need lots of memory, clang will segfault at some point
-#target_compile_options(${PROJECT_NAME} PUBLIC "-ftemplate-depth=5000")
+target_compile_options(${PROJECT_NAME} PUBLIC "-ftemplate-depth=2048")

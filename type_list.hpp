@@ -49,6 +49,7 @@ namespace static_stl::list {
 
     template<type_list List, std::size_t index>
     struct GetType {
+        static_assert(index < Size<List>::val, "Set out of bounds");
         using type = typename GetType<typename List::next, index - 1>::type;
     };
 
@@ -64,6 +65,7 @@ namespace static_stl::list {
 
     template<typename T, type_list List, std::size_t index>
     struct SetType {
+        static_assert(index < Size<List>::val, "Set out of bounds");
         using type = Type<typename List::elem, typename SetType<T, typename List::next, index - 1>::type>;
     };
 
