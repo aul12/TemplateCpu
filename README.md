@@ -27,24 +27,24 @@ below for more information on Template-Assembly.
 ### Instructions
 Below are all supported instructions, for most instructions there is also
 an Immediate version, denoted by an "I" at the end (so Add-Immediate is `AddI`),
-which takes a constant literal instead of a register as argument.
+which takes a constant literal instead of a register as (last) argument.
 
-| Name        | Description                          | C++-Equivalent            |
-| ----------- | ------------------------------------ | ------------------------- |
-| `Add`       | Add                                  | `res = a+b`               |
-| `Sub`       | Subtract                             | `res = a-b`               |
-| `Mul`       | Multiply                             | `res = a*b`               |
-| `Div`       | Divide (Exception at divide by zero) | `res = a/b`               |
-| `And`       | Bitwise And                          | `res = a & b`             |
-| `Or`        | Bitwise Or                           | `res = a \| b`            |
-| `XOr`       | Bitwise Exclusive-Or                 | `res = a ^ b`             |
-| `Less`      | Smaller comparison                   | `res = a < b`             |
-| `Greater`   | Greater comparison                   | `res = a > b`             |
-| `Jump`      | Jump to address in program           | `goto reg`                |
-| `BranchEq`  | Branch/Jump if equal                 | `if (a == b) {goto reg;}` |
-| `BranchNEq` | Branch/Jump if not equal             | `if (a != b) {goto reg;}` |
-| `Store`     | Store register to memory             | `*addr_reg = reg`         |
-| `Load`      | Load from memory into register       | `reg = *addr_reg`         |
+| Name        | Description                          | Arguments        | C++-Equivalent            |
+| ----------- | ------------------------------------ | ---------------- | ------------------------- |
+| `Add`       | Add                                  | `res`,`a`,`b`    | `res = a+b`               |
+| `Sub`       | Subtract                             | `res`,`a`,`b`    | `res = a-b`               |
+| `Mul`       | Multiply                             | `res`,`a`,`b`    | `res = a*b`               |
+| `Div`       | Divide (Exception at divide by zero) | `res`,`a`,`b`    | `res = a/b`               |
+| `And`       | Bitwise And                          | `res`,`a`,`b`    | `res = a & b`             |
+| `Or`        | Bitwise Or                           | `res`,`a`,`b`    | `res = a \| b`            |
+| `XOr`       | Bitwise Exclusive-Or                 | `res`,`a`,`b`    | `res = a ^ b`             |
+| `Less`      | Smaller comparison                   | `res`,`a`,`b`    | `res = a < b`             |
+| `Greater`   | Greater comparison                   | `res`,`a`,`b`    | `res = a > b`             |
+| `Jump`      | Jump to address in program           | `reg`            | `goto reg`                |
+| `BranchEq`  | Branch/Jump if equal                 | `a`,`b`,`reg`    | `if (a == b) {goto reg;}` |
+| `BranchNEq` | Branch/Jump if not equal             | `a`,`b`.`reg`    | `if (a != b) {goto reg;}` |
+| `Store`     | Store register to memory             | `addr_reg`,`reg` | `*addr_reg = reg`         |
+| `Load`      | Load from memory into register       | `reg`,`addr_reg` | `reg = *addr_reg`         |
 
 ### Examples
 As an example there are two versions of a program to calculate the n-th fibonacci number.

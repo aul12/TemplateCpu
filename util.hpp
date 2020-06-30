@@ -22,6 +22,9 @@ auto getRegisterName(Register reg) -> std::string {
         ADD_CASE(C)
         ADD_CASE(D)
         ADD_CASE(E)
+        ADD_CASE(F)
+        ADD_CASE(G)
+        ADD_CASE(H)
         ADD_CASE(STACK_PTR)
         ADD_CASE(RET)
         default: return "ERROR";
