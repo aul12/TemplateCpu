@@ -2,7 +2,7 @@
  * @file config.hpp
  * @author paul
  * @date 02.06.20
- * Description here TODO
+ * Definition of types and parameters of the CPU emulator.
  */
 #ifndef TEMPLATE_CPU_CONFIG_HPP
 #define TEMPLATE_CPU_CONFIG_HPP
@@ -10,11 +10,14 @@
 #include "value_list.hpp"
 #include "type_list.hpp"
 
-using base_type = int;
-using mem_ptr_type = std::size_t;
+using base_type = int; ///< The type used for registers and memory
+using mem_ptr_type = std::size_t; ///< The type used for enumerating addresses in the memory
 
-constexpr auto MEM_SIZE = 1024;
+constexpr auto MEM_SIZE = 1024; ///< Size of the memory
 
+/**
+ * Enum used for enumerating the registers
+ */
 enum class Register {
         ZERO,
         A,
