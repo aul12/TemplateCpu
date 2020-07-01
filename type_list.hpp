@@ -67,6 +67,12 @@ struct IsTypeList<ListEnd> {
 template<typename T>
 concept type_list = IsTypeList<T>::val;
 
+// Helper functions
+
+/**
+ * Returns the size / length of the list
+ * @tparam List the list to use
+ */
 template<type_list List>
 struct Size {
     static constexpr std::size_t val = Size<typename List::next>::val + 1;
@@ -77,6 +83,11 @@ struct Size<ListEnd> {
     static constexpr std::size_t val = 0;
 };
 
+/**
+ * Get the type at an index
+ * @tparam List the list
+ * @tparam index the index needs to be less than the size of the list
+ */
 template<type_list List, std::size_t index>
 struct GetType {
     static_assert(index < Size<List>::val, "GetType out of bounds");
@@ -88,6 +99,12 @@ struct GetType<List, 0> {
     using type = typename List::elem;
 };
 
+/**
+ * Set the type at an index, a new, modified, list is returned
+ * @tparam T the type to insert
+ * @tparam List the list in which to insert
+ * @tparam index the index at which to insert needs to be less than the size of the list
+ */
 template<typename T, type_list List, std::size_t index>
 struct SetType {
     static_assert(index < Size<List>::val, "SetType out of bounds");
@@ -99,6 +116,11 @@ struct SetType<T, List, 0> {
     using type = Type<T, typename List::next>;
 };
 
+/**
+ * Check if an list contains a certain type
+ * @tparam T the to find
+ * @tparam List the list in which to search
+ */
 template<typename T, type_list List>
 struct ContainsType {
     static constexpr auto val =
@@ -110,6 +132,11 @@ struct ContainsType<T, ListEnd> {
     static constexpr auto val = false;
 };
 
+/**
+ * Create a list from a variadic type list.
+ * @tparam T the first type
+ * @tparam Ts the following types
+ */
 template<typename T, typename ...Ts>
 struct FromVariadicType {
     using type = Type<T, typename FromVariadicType<Ts...>::type>;
@@ -120,6 +147,11 @@ struct FromVariadicType<T> {
     using type = Type<T, ListEnd>;
 };
 
+/**
+ * Create a list of a certain length of a certain type.
+ * @tparam N the number of elements
+ * @tparam T the type to use
+ */
 template<std::size_t N, typename T>
 struct FillType {
     using type = Type<T, typename FillType<N-1, T>::type>;
