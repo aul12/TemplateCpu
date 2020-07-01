@@ -32,44 +32,76 @@ constexpr auto SYMBOL_COUNT = 16;
  * g is head_direction (0: none, 1: left, 2: right)
  *
  * if the next state is 0 the program terminates
+ *
+ * See: turing_machine.py for the same code in python (slightly more readable). Additionally the python code can generate
+ * the correct memory initialization code
  */
 
+constexpr auto OFFSET = 23;
 static_assert(TAPE_SIZE + SYMBOL_COUNT * STATE_SIZE * 3 <= MEM_SIZE, "Program is to large!");
 
 using turing_machine =
         DeclareProgram<
+                AddI<int, Register::A, Register::ZERO, 1>,
+                StoreI<16, Register::A>,
+                AddI<int, Register::A, Register::ZERO, 1>,
+                StoreI<17, Register::A>,
+                AddI<int, Register::A, Register::ZERO, 2>,
+                StoreI<18, Register::A>,
+                AddI<int, Register::A, Register::ZERO, 1>,
+                StoreI<64, Register::A>,
+                AddI<int, Register::A, Register::ZERO, 2>,
+                StoreI<65, Register::A>,
+                AddI<int, Register::A, Register::ZERO, 2>,
+                StoreI<66, Register::A>,
+                AddI<int, Register::A, Register::ZERO, 1>,
+                StoreI<112, Register::A>,
+                AddI<int, Register::A, Register::ZERO, 3>,
+                StoreI<113, Register::A>,
+                AddI<int, Register::A, Register::ZERO, 2>,
+                StoreI<114, Register::A>,
+                AddI<int, Register::A, Register::ZERO, 1>,
+                StoreI<160, Register::A>,
+                AddI<int, Register::A, Register::ZERO, 2>,
+                StoreI<162, Register::A>,
+                AddI<int, Register::A, Register::ZERO, 0>,
+
             Load<Register::C, Register::B>, // 0: c = *b;
             MulI<int, Register::C, Register::C, 3>, // 1: c *= 3;
 
-            // new symbol
+            // Offset calculation
             MulI<int, Register::E, Register::A, 3 * SYMBOL_COUNT>, // 2: e = a * 3 * SYMBOL_COUNT
             Add<Register::E, Register::E, Register::C>, // 3: e += c
             AddI<int, Register::E, Register::E, TAPE_SIZE>, // 4: e += TAPE_SIZE
-            Store<Register::E, Register::B>, // 5: *e = b CHECK
 
             // new state
-            AddI<int, Register::A, Register::E, 1>, // 6: a = e + 1
-            Load<Register::A, Register::A>, // 7: a = *a
+            AddI<int, Register::A, Register::E, 1>, // 5: a = e + 1
+            Load<Register::A, Register::A>, // 6: a = *a
 
             // head_direction
-            AddI<int, Register::G, Register::E, 2>, // 8: g = e + 2
-            Load<Register::G, Register::G>, // 9: g * *g
+            AddI<int, Register::G, Register::E, 2>, // 7: g = e + 2
+            Load<Register::G, Register::G>, // 8: g = *g
 
-            BranchEqI<int, Register::G, Register::ZERO, 17>, // 10: if (g == 0) goto LABEL_3
-            LessI<int, Register::G, Register::G, 2>, // 11: g = g < 2 (<=> g == 1)
-            BranchNEqI<int, Register::G, Register::ZERO, 14>, // 12: if (g != 0) goto LABEL_1 (<=> g == 1)
-            JumpI<int, 16>, // 13: else goto LABEL_2
+            // New symbol
+            Load<Register::E, Register::E>, // 9: e = *e
+            Store<Register::B, Register::E>, // 10: *b = e;
+
+            // Head control
+            BranchEqI<int, Register::G, Register::ZERO, 18+OFFSET>, // 11: if (g == 0) goto LABEL_3
+            LessI<int, Register::G, Register::G, 2>, // 12: g = g < 2 (<=> dir == 1)
+            BranchNEqI<int, Register::G, Register::ZERO, 15+OFFSET>, // 13: if (g != 0) goto LABEL_1 (<=> dir == 1)
+            JumpI<int, 17+OFFSET>, // 14: else goto LABEL_2
 
             // Left
-            SubI<int, Register::B, Register::B, 1>, // 14: LABEL_1: b -= 1
-            JumpI<int, 18>, // 15: goto LABEL_3
+            SubI<int, Register::B, Register::B, 1>, // 15: LABEL_1: b -= 1
+            JumpI<int, 18+OFFSET>, // 16: goto LABEL_3
 
             // Right
-            AddI<int, Register::B, Register::B, 1>, // 16: LABEL_2: b += 1
+            AddI<int, Register::B, Register::B, 1>, // 17: LABEL_2: b += 1
 
-            BranchEqI<int, Register::A, Register::ZERO, 19>, // 17: LABEL_3 if (a == 0) goto END
+            BranchEqI<int, Register::A, Register::ZERO, 20+OFFSET>, // 18: LABEL_3 if (a == 0) goto END
             // while true
-            JumpI<int, 0> // 18: goto 0
+            JumpI<int, 0+OFFSET> // 19: goto 0
 
         >;
 
