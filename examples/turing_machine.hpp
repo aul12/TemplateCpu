@@ -42,7 +42,7 @@ static_assert(TAPE_SIZE + SYMBOL_COUNT * STATE_SIZE * 3 <= MEM_SIZE, "Program is
 
 using turing_machine =
         DeclareProgram<
-            // Memory initialization see turing_machine.py
+            // Memory initialization see turing_machine.py for the code for generating this initialization
             AddI<int, Register::A, Register::ZERO, 1>,
             StoreI<16, Register::A>,
             AddI<int, Register::A, Register::ZERO, 1>,
@@ -68,42 +68,43 @@ using turing_machine =
             AddI<int, Register::A, Register::ZERO, 0>,
 
             // Turing machine implementation
-            Load<Register::C, Register::B>, // 0: c = *b;
-            MulI<int, Register::C, Register::C, 3>, // 1: c *= 3;
+            Load<Register::C, Register::B>,                          // 0: c = *b;
+            MulI<int, Register::C, Register::C, 3>,                  // 1: c *= 3;
 
             // Offset calculation
-            MulI<int, Register::E, Register::A, 3 * SYMBOL_COUNT>, // 2: e = a * 3 * SYMBOL_COUNT
-            Add<Register::E, Register::E, Register::C>, // 3: e += c
-            AddI<int, Register::E, Register::E, TAPE_SIZE>, // 4: e += TAPE_SIZE
+            MulI<int, Register::E, Register::A, 3 * SYMBOL_COUNT>,   // 2: e = a * 3 * SYMBOL_COUNT
+            Add<Register::E, Register::E, Register::C>,              // 3: e += c
+            AddI<int, Register::E, Register::E, TAPE_SIZE>,          // 4: e += TAPE_SIZE
 
             // new state
-            AddI<int, Register::A, Register::E, 1>, // 5: a = e + 1
-            Load<Register::A, Register::A>, // 6: a = *a
+            AddI<int, Register::A, Register::E, 1>,                  // 5: a = e + 1
+            Load<Register::A, Register::A>,                          // 6: a = *a
 
             // head_direction
-            AddI<int, Register::G, Register::E, 2>, // 7: g = e + 2
-            Load<Register::G, Register::G>, // 8: g = *g
+            AddI<int, Register::G, Register::E, 2>,                  // 7: g = e + 2
+            Load<Register::G, Register::G>,                          // 8: g = *g
 
             // New symbol
-            Load<Register::E, Register::E>, // 9: e = *e
-            Store<Register::B, Register::E>, // 10: *b = e;
+            Load<Register::E, Register::E>,                          // 9: e = *e
+            Store<Register::B, Register::E>,                         // 10: *b = e;
 
             // Head control
-            BranchEqI<int, Register::G, Register::ZERO, 18+OFFSET>, // 11: if (g == 0) goto LABEL_3
-            LessI<int, Register::G, Register::G, 2>, // 12: g = g < 2 (<=> dir == 1)
+            BranchEqI<int, Register::G, Register::ZERO, 18+OFFSET>,  // 11: if (g == 0) goto LABEL_3
+            LessI<int, Register::G, Register::G, 2>,                 // 12: g = g < 2 (<=> dir == 1)
             BranchNEqI<int, Register::G, Register::ZERO, 15+OFFSET>, // 13: if (g != 0) goto LABEL_1 (<=> dir == 1)
-            JumpI<int, 17+OFFSET>, // 14: else goto LABEL_2
+            JumpI<int, 17+OFFSET>,                                   // 14: else goto LABEL_2
 
             // Left
-            SubI<int, Register::B, Register::B, 1>, // 15: LABEL_1: b -= 1
-            JumpI<int, 18+OFFSET>, // 16: goto LABEL_3
+            SubI<int, Register::B, Register::B, 1>,                  // 15: LABEL_1: b -= 1
+            JumpI<int, 18+OFFSET>,                                   // 16: goto LABEL_3
 
             // Right
-            AddI<int, Register::B, Register::B, 1>, // 17: LABEL_2: b += 1
+            AddI<int, Register::B, Register::B, 1>,                   // 17: LABEL_2: b += 1
 
-            BranchEqI<int, Register::A, Register::ZERO, 20+OFFSET>, // 18: LABEL_3 if (a == 0) break
+            BranchEqI<int, Register::A, Register::ZERO, 20+OFFSET>,   // 18: LABEL_3 if (a == 0) break
+
             // while true
-            JumpI<int, 0+OFFSET> // 19: goto 0
+            JumpI<int, 0+OFFSET>                                      // 19: goto 0
 
         >;
 

@@ -7,8 +7,6 @@
 #ifndef TEMPLATE_CPU_VALUE_LIST_HPP
 #define TEMPLATE_CPU_VALUE_LIST_HPP
 
-#include <type_traits>
-
 #include "type_list.hpp"
 
 template<typename T, T val_>
@@ -45,7 +43,8 @@ concept value_list = IsValueList<T>::val;
 
 template<typename T, value_list List>
 struct ListOfType {
-    static constexpr auto val = std::is_same<T, typename List::elem::type>::value && ListOfType<T, typename List::next>::val;
+    static constexpr auto val =
+            std::is_same<T, typename List::elem::type>::value && ListOfType<T, typename List::next>::val;
 };
 
 template<typename T>
@@ -61,11 +60,6 @@ concept value_list_of_type = ListOfType<T, List>::val;
 template<value_list List, std::size_t index>
 struct GetVal {
     static constexpr auto val = GetType<List, index>::type::val;
-};
-
-template<typename T, value_list List, T val>
-struct PrependVal {
-    using type = typename PrependType<ValueContainer<T, val>, List>::type;
 };
 
 template<typename T, value_list List, std::size_t index, T val> requires value_list_of_type<T, List>

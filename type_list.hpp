@@ -2,37 +2,68 @@
  * @file type_list.hpp
  * @author paul
  * @date 25.05.20
- * Description here TODO
+ * Header used for the declaration of the type list and all related structs and concepts.
  */
 #ifndef TEMPLATE_CPU_TYPE_LIST_HPP
 #define TEMPLATE_CPU_TYPE_LIST_HPP
 
 #include <cstddef>
+#include <type_traits>
 
+/**
+ * Declaration of the type used for elements of a type list, which is a singly linked list.
+ * @tparam T the type (i.e. element) at the current position
+ * @tparam next_ the next element. Should be of type Type or ListEnd.
+ */
 template<typename T, typename next_>
 struct Type {
     using elem = T;
     using next = next_;
 };
 
+/**
+ * Declaration of the type used for signaling the end of a list, in normal runtime languages a nullptr would be used
+ * here.
+ */
 struct ListEnd {};
 
 // List concepts
+
+/**
+ * Struct for specifying if a type is type list, i.e. if it is either a instantiation of Type or ListEnd.
+ * This is the general type which is always false, for the correct types the struct is specialized.
+ * @tparam T the type to check
+ */
 template<typename T>
 struct IsTypeList {
     static constexpr bool val = false;
 };
 
+/**
+ * Specialization of IsTypeList for Type
+ * @see ISTypeList
+ * @see Type
+ */
 template<typename T, typename next>
 struct IsTypeList<Type<T, next>> {
     static constexpr bool val = true;
 };
 
+/**
+ * Specialization of IsTypeList for ListEnd
+ * @see ISTypeList
+ * @see Type
+ */
 template<>
 struct IsTypeList<ListEnd> {
     static constexpr bool val = true;
 };
 
+/**
+ * Concept that specifies whether a type is a type list
+ * @see IsTypeList
+ * @tparam T the type to check
+ */
 template<typename T>
 concept type_list = IsTypeList<T>::val;
 
@@ -48,7 +79,7 @@ struct Size<ListEnd> {
 
 template<type_list List, std::size_t index>
 struct GetType {
-    static_assert(index < Size<List>::val, "Set out of bounds");
+    static_assert(index < Size<List>::val, "GetType out of bounds");
     using type = typename GetType<typename List::next, index - 1>::type;
 };
 
@@ -57,14 +88,9 @@ struct GetType<List, 0> {
     using type = typename List::elem;
 };
 
-template<typename toAdd, type_list List>
-struct PrependType {
-    using type = Type<toAdd, List>;
-};
-
 template<typename T, type_list List, std::size_t index>
 struct SetType {
-    static_assert(index < Size<List>::val, "Set out of bounds");
+    static_assert(index < Size<List>::val, "SetType out of bounds");
     using type = Type<typename List::elem, typename SetType<T, typename List::next, index - 1>::type>;
 };
 
@@ -75,35 +101,14 @@ struct SetType<T, List, 0> {
 
 template<typename T, type_list List>
 struct ContainsType {
-    static constexpr auto val = std::is_same<T, typename List::elem>::value || ContainsType<T, typename List::next>::val;
+    static constexpr auto val =
+            std::is_same<T, typename List::elem>::value || ContainsType<T, typename List::next>::val;
 };
 
 template<typename T>
 struct ContainsType<T, ListEnd> {
     static constexpr auto val = false;
 };
-
-template<type_list List, std::size_t steps>
-struct ReverseImpl {
-    using type = typename PrependType<
-                                        typename GetType<
-                                                List,
-                                                Size<List>::val-1
-                                        >::type,
-                                        typename ReverseImpl<List, steps-1>::type
-                                    >::type;
-};
-
-template<type_list List>
-struct ReverseImpl<List, 0> {
-    using type = List;
-};
-
-template<type_list List>
-struct Reverse {
-    using type = typename ReverseImpl<List, Size<List>::val/2>::type;
-};
-
 
 template<typename T, typename ...Ts>
 struct FromVariadicType {

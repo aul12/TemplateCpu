@@ -47,8 +47,9 @@ struct registerPrinterImpl<ListEnd, c> {
 template<Memory memory, std::size_t c>
 struct memoryPrinterImpl {
     static void print() {
+        constexpr auto WORDS_PER_LINE = 16;
         std::cout << std::setw(10) << GetVal<memory, 0>::val;
-        if (c % 8 == 7) {
+        if (c % WORDS_PER_LINE == (WORDS_PER_LINE - 1)) {
             std::cout << std::endl;
         }
         memoryPrinterImpl<typename memory::next, c+1>::print();
