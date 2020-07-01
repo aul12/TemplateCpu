@@ -4,8 +4,8 @@
  * @date 04.06.20
  * Description here TODO
  */
-#ifndef TEMPLATECPU_INSTRUCTION_UTIL_HPP
-#define TEMPLATECPU_INSTRUCTION_UTIL_HPP
+#ifndef TEMPLATE_CPU_INSTRUCTION_UTIL_HPP
+#define TEMPLATE_CPU_INSTRUCTION_UTIL_HPP
 
 template<bool cond, std::size_t PC, std::size_t target>
 struct GetTarget {
@@ -24,4 +24,4 @@ struct DivWithException {
 };
 
 
-#endif //TEMPLATECPU_INSTRUCTION_UTIL_HPP
+#endif //TEMPLATE_CPU_INSTRUCTION_UTIL_HPP

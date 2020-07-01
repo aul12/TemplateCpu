@@ -4,8 +4,8 @@
  * @date 25.05.20
  * Description here TODO
  */
-#ifndef TEMPLATECPU_UTIL_HPP
-#define TEMPLATECPU_UTIL_HPP
+#ifndef TEMPLATE_CPU_UTIL_HPP
+#define TEMPLATE_CPU_UTIL_HPP
 
 #include <iostream>
 #include <iomanip>
@@ -72,4 +72,4 @@ struct printer {
 };
 
 
-#endif //TEMPLATECPU_UTIL_HPP
+#endif //TEMPLATE_CPU_UTIL_HPP

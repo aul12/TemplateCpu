@@ -4,8 +4,8 @@
  * @date 25.05.20
  * Description here TODO
  */
-#ifndef TEMPLATEPROCESSOR_INSTRUCTIONS_HPP
-#define TEMPLATEPROCESSOR_INSTRUCTIONS_HPP
+#ifndef TEMPLATE_CPU_INSTRUCTIONS_HPP
+#define TEMPLATE_CPU_INSTRUCTIONS_HPP
 
 #include "cpu_types.hpp"
 #include "instruction_def.hpp"
@@ -316,4 +316,4 @@ template<Register a, Register b>
 using Mov = AddI<base_type, a, b, 0>;
 
 
-#endif //TEMPLATEPROCESSOR_INSTRUCTIONS_HPP
+#endif //TEMPLATE_CPU_INSTRUCTIONS_HPP

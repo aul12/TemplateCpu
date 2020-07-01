@@ -4,13 +4,11 @@
  * @date 02.06.20
  * Description here TODO
  */
-#ifndef TEMPLATECPU_CONFIG_HPP
-#define TEMPLATECPU_CONFIG_HPP
+#ifndef TEMPLATE_CPU_CONFIG_HPP
+#define TEMPLATE_CPU_CONFIG_HPP
 
 #include "value_list.hpp"
 #include "type_list.hpp"
-
-using namespace static_stl::list;
 
 using base_type = int;
 using mem_ptr_type = std::size_t;
@@ -33,4 +31,4 @@ enum class Register {
 };
 
 
-#endif //TEMPLATECPU_CONFIG_HPP
+#endif //TEMPLATE_CPU_CONFIG_HPP

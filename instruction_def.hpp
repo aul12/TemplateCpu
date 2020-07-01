@@ -4,8 +4,8 @@
  * @date 27.05.20
  * Description here TODO
  */
-#ifndef TEMPLATECPU_INSTRUCTION_DEF_HPP
-#define TEMPLATECPU_INSTRUCTION_DEF_HPP
+#ifndef TEMPLATE_CPU_INSTRUCTION_DEF_HPP
+#define TEMPLATE_CPU_INSTRUCTION_DEF_HPP
 
 #include "config.hpp"
 
@@ -242,4 +242,4 @@ struct is_instruction<JumpI<T, reg>> {
 template<typename T>
 concept instruction = is_instruction<T>::val;
 
-#endif //TEMPLATECPU_INSTRUCTION_DEF_HPP
+#endif //TEMPLATE_CPU_INSTRUCTION_DEF_HPP

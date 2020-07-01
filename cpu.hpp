@@ -4,8 +4,8 @@
  * @date 25.05.20
  * Description here TODO
  */
-#ifndef TEMPLATEPROCESSOR_CPU_HPP
-#define TEMPLATEPROCESSOR_CPU_HPP
+#ifndef TEMPLATE_CPU_CPU_HPP
+#define TEMPLATE_CPU_CPU_HPP
 
 #include "instructions.hpp"
 
@@ -81,4 +81,4 @@ struct CpuDebug {
     >::val;
 };
 
-#endif //TEMPLATEPROCESSOR_CPU_HPP
+#endif //TEMPLATE_CPU_CPU_HPP
