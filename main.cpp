@@ -4,7 +4,7 @@
 #include "examples/turing_machine.hpp"
 
 int main() {
-    using result = CpuDebug<turing_machine, 20>::run;
+    using result = Cpu<turing_machine>::run;
     using printer = printer<result::Reg, result::Mem>;
 
     if constexpr (result::is_breakpoint) {

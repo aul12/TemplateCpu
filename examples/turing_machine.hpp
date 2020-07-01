@@ -29,7 +29,9 @@ constexpr auto SYMBOL_COUNT = 16;
  *
  * e is new_symbol
  * f is new_state
- * g is head_direction
+ * g is head_direction (0: none, 1: left, 2: right)
+ *
+ * if the next state is 0 the program terminates
  */
 
 static_assert(TAPE_SIZE + SYMBOL_COUNT * STATE_SIZE * 3 <= MEM_SIZE, "Program is to large!");
@@ -47,22 +49,27 @@ using turing_machine =
 
             // new state
             AddI<int, Register::A, Register::E, 1>, // 6: a = e + 1
+            Load<Register::A, Register::A>, // 7: a = *a
 
             // head_direction
-            AddI<int, Register::G, Register::E, 2>, // 7: g = e + 2
+            AddI<int, Register::G, Register::E, 2>, // 8: g = e + 2
+            Load<Register::G, Register::G>, // 9: g * *g
 
-            BranchEqI<int, Register::G, Register::ZERO, 10>, // 8: if (g == 0) goto LABEL_1
-            JumpI<int, 12>, // 9: else goto LABEL_2
+            BranchEqI<int, Register::G, Register::ZERO, 17>, // 10: if (g == 0) goto LABEL_3
+            LessI<int, Register::G, Register::G, 2>, // 11: g = g < 2 (<=> g == 1)
+            BranchNEqI<int, Register::G, Register::ZERO, 14>, // 12: if (g != 0) goto LABEL_1 (<=> g == 1)
+            JumpI<int, 16>, // 13: else goto LABEL_2
 
             // Left
-            SubI<int, Register::B, Register::B, 1>, // 10 LABEL_1: b -= 1
-            JumpI<int, 12>, // 11 goto LABEL_3
+            SubI<int, Register::B, Register::B, 1>, // 14: LABEL_1: b -= 1
+            JumpI<int, 18>, // 15: goto LABEL_3
 
             // Right
-            AddI<int, Register::B, Register::B, 1>, // 12 LABEL_2: b += 1
+            AddI<int, Register::B, Register::B, 1>, // 16: LABEL_2: b += 1
 
+            BranchEqI<int, Register::A, Register::ZERO, 19>, // 17: LABEL_3 if (a == 0) goto END
             // while true
-            JumpI<int, 0>
+            JumpI<int, 0> // 18: goto 0
 
         >;
 
