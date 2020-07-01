@@ -2,7 +2,7 @@
  * @file util.hpp
  * @author paul
  * @date 25.05.20
- * Description here TODO
+ * Definition of utility functions for printing the results of program execution.
  */
 #ifndef TEMPLATE_CPU_UTIL_HPP
 #define TEMPLATE_CPU_UTIL_HPP
@@ -12,8 +12,16 @@
 
 #include "config.hpp"
 
+/**
+ * Macro for generating a case statement which returns the string representation of the enum value
+ */
 #define ADD_CASE(a) case Register::a: return #a;
 
+/**
+ * Get the string representation of a register.
+ * @param reg the register
+ * @return a string, with the exact name as the enum value
+ */
 auto getRegisterName(Register reg) -> std::string {
     switch (reg) {
         ADD_CASE(ZERO)
@@ -31,6 +39,11 @@ auto getRegisterName(Register reg) -> std::string {
     }
 }
 
+/**
+ * Implementation of a compile time loop for printing the registers.
+ * @tparam registers the register map
+ * @tparam c the index at which to print
+ */
 template<Registers registers, std::size_t c>
 struct registerPrinterImpl {
     static void print() {
@@ -44,6 +57,11 @@ struct registerPrinterImpl<ListEnd, c> {
     static void print() {}
 };
 
+/**
+ * Implementation of a compile time loop for printing the memory
+ * @tparam memory the memory
+ * @tparam c the index at which to print
+ */
 template<Memory memory, std::size_t c>
 struct memoryPrinterImpl {
     static void print() {
@@ -61,12 +79,23 @@ struct memoryPrinterImpl<ListEnd, c> {
     static void print() {}
 };
 
+/**
+ * Struct used for printing registers and memory from a program result
+ * @tparam registers the registers
+ * @tparam memory the memory
+ */
 template<Registers registers, Memory memory>
 struct printer {
+    /**
+     * Runtime function to printing the registers
+     */
     static void reg() {
         registerPrinterImpl<registers, 0>::print();
     }
 
+    /**
+     * Runtime function for printing the memory
+     */
     static void mem() {
         memoryPrinterImpl<memory, 0>::print();
     }
