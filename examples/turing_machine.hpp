@@ -34,7 +34,7 @@ constexpr auto SYMBOL_COUNT = 16;
  * if the next state is 0 the program terminates
  *
  * See: turing_machine.py for the same code in python (slightly more readable). Additionally the python code can generate
- * the correct memory initialization code
+ * the correct memory initialization code and offset for the code
  */
 
 constexpr auto OFFSET = 23;
@@ -42,30 +42,32 @@ static_assert(TAPE_SIZE + SYMBOL_COUNT * STATE_SIZE * 3 <= MEM_SIZE, "Program is
 
 using turing_machine =
         DeclareProgram<
-                AddI<int, Register::A, Register::ZERO, 1>,
-                StoreI<16, Register::A>,
-                AddI<int, Register::A, Register::ZERO, 1>,
-                StoreI<17, Register::A>,
-                AddI<int, Register::A, Register::ZERO, 2>,
-                StoreI<18, Register::A>,
-                AddI<int, Register::A, Register::ZERO, 1>,
-                StoreI<64, Register::A>,
-                AddI<int, Register::A, Register::ZERO, 2>,
-                StoreI<65, Register::A>,
-                AddI<int, Register::A, Register::ZERO, 2>,
-                StoreI<66, Register::A>,
-                AddI<int, Register::A, Register::ZERO, 1>,
-                StoreI<112, Register::A>,
-                AddI<int, Register::A, Register::ZERO, 3>,
-                StoreI<113, Register::A>,
-                AddI<int, Register::A, Register::ZERO, 2>,
-                StoreI<114, Register::A>,
-                AddI<int, Register::A, Register::ZERO, 1>,
-                StoreI<160, Register::A>,
-                AddI<int, Register::A, Register::ZERO, 2>,
-                StoreI<162, Register::A>,
-                AddI<int, Register::A, Register::ZERO, 0>,
+            // Memory initialization see turing_machine.py
+            AddI<int, Register::A, Register::ZERO, 1>,
+            StoreI<16, Register::A>,
+            AddI<int, Register::A, Register::ZERO, 1>,
+            StoreI<17, Register::A>,
+            AddI<int, Register::A, Register::ZERO, 2>,
+            StoreI<18, Register::A>,
+            AddI<int, Register::A, Register::ZERO, 1>,
+            StoreI<64, Register::A>,
+            AddI<int, Register::A, Register::ZERO, 2>,
+            StoreI<65, Register::A>,
+            AddI<int, Register::A, Register::ZERO, 2>,
+            StoreI<66, Register::A>,
+            AddI<int, Register::A, Register::ZERO, 1>,
+            StoreI<112, Register::A>,
+            AddI<int, Register::A, Register::ZERO, 3>,
+            StoreI<113, Register::A>,
+            AddI<int, Register::A, Register::ZERO, 2>,
+            StoreI<114, Register::A>,
+            AddI<int, Register::A, Register::ZERO, 1>,
+            StoreI<160, Register::A>,
+            AddI<int, Register::A, Register::ZERO, 2>,
+            StoreI<162, Register::A>,
+            AddI<int, Register::A, Register::ZERO, 0>,
 
+            // Turing machine implementation
             Load<Register::C, Register::B>, // 0: c = *b;
             MulI<int, Register::C, Register::C, 3>, // 1: c *= 3;
 
@@ -99,7 +101,7 @@ using turing_machine =
             // Right
             AddI<int, Register::B, Register::B, 1>, // 17: LABEL_2: b += 1
 
-            BranchEqI<int, Register::A, Register::ZERO, 20+OFFSET>, // 18: LABEL_3 if (a == 0) goto END
+            BranchEqI<int, Register::A, Register::ZERO, 20+OFFSET>, // 18: LABEL_3 if (a == 0) break
             // while true
             JumpI<int, 0+OFFSET> // 19: goto 0
 

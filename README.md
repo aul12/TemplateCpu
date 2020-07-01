@@ -81,7 +81,7 @@ int main() {
 }
 ```
 
-#### Iterative
+#### Fibonacci-Iterative
 The iterative solution calculates the fibonacci number using a loop. In (normal run-time) C++
 the code would look like this:
 ```c++
@@ -120,7 +120,7 @@ using fib_iterative =
         >;
 ```
 
-#### Recursive
+#### Fibonacci-Recursive
 The recursive implementations demonstrates function calls and the stack. 
 In (normal run-time) C++ the code would look like this:
 ```c++
@@ -190,3 +190,11 @@ using fib_recursive =
             Jump<Register::RET>                                     //30: LABEL_3, return
         >;
 ```
+
+#### Turing Machine
+There is also an emulator of a turing machine built upon the CPU emulator. The complete code can be found in 
+`examples/turing_machine.hpp` there is also a python implementation of the same code located in 
+`examples/turing_machine.py` this code is more readable, but is consistent to the template assembly implementation.
+Furthermore the python implementation allows the user to directly specify transitions without calculating memory 
+addresses manually. The memory used for the python example can also be used to directly create the correct 
+initialization code for the template assembly implementation.
