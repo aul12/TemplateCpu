@@ -15,10 +15,10 @@ else ()
 endif ()
 
 add_executable(${PROJECT_NAME} main.cpp)
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU") # GCC 9 requires another flag for experimental concepts support.
     target_compile_options(${PROJECT_NAME} PUBLIC "-fconcepts")
 endif ()
 
-# Uncomment for larger programs, be careful with the maximum depth,
+# Change for larger programs, be careful with the maximum depth,
 # GCC will need lots of memory, clang will segfault at some point
 target_compile_options(${PROJECT_NAME} PUBLIC "-ftemplate-depth=2048")
