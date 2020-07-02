@@ -27,7 +27,8 @@ below for more information on Template-Assembly.
 ### Instructions
 Below are all supported instructions, for most instructions there is also
 an Immediate version, denoted by an "I" at the end (so Add-Immediate is `AddI`),
-which takes a constant literal instead of a register as (last) argument.
+which takes a constant literal instead of a register as (last) argument. The full declaration of all instruction
+with a more detailed explanation can be found in `instruction_def.hpp`.
 
 | Name        | Description                          | Arguments        | C++-Equivalent            |
 | ----------- | ------------------------------------ | ---------------- | ------------------------- |
@@ -47,7 +48,8 @@ which takes a constant literal instead of a register as (last) argument.
 | `Load`      | Load from memory into register       | `reg`,`addr_reg` | `reg = *addr_reg`         |
 
 ### Examples
-As an example there are two versions of a program to calculate the n-th fibonacci number.
+As an example there are two versions of a program to calculate the n-th fibonacci number additionally the last example
+is the implementation of a turing machine using Template-assembly.
 
 #### Running a program
 There are some utility functions to help debugging the Template-assembly code.

@@ -2,52 +2,148 @@
  * @file instruction_def.hpp
  * @author paul
  * @date 27.05.20
- * Description here TODO
+ * Declaration of the instructions and the corresponding concept.
  */
 #ifndef TEMPLATE_CPU_INSTRUCTION_DEF_HPP
 #define TEMPLATE_CPU_INSTRUCTION_DEF_HPP
 
 #include "config.hpp"
 
+/**
+ * Addition instruction: the register res is set to the value of the register a plus the value of register b
+ * @tparam res result register
+ * @tparam a register of first operand
+ * @tparam b register of second operand
+ */
 template<Register res, Register a, Register b>
 struct Add {};
 
+/**
+ * Addition with immediate instruction: the register res is set to the value of the register a plus the value b
+ * @tparam T the type of b
+ * @tparam res the result register
+ * @tparam a register of first operand
+ * @tparam b value of the second operand
+ */
 template<typename T, Register res, Register a, T b>
 struct AddI {};
 
+/**
+ * Subtraction instruction: the register res is set to the value of the register a minus the register b
+ * @tparam res result register
+ * @tparam a register of first operand
+ * @tparam b register of second operand
+ */
 template<Register res, Register a, Register b>
 struct Sub {};
 
+/**
+ * Subtraction with immediate instruction: the register res is set to the value of the register a minus the value b
+ * @tparam T the type of b
+ * @tparam res the result register
+ * @tparam a register of first operand
+ * @tparam b value of the second operand
+ */
 template<typename T, Register res, Register a, T b>
 struct SubI {};
 
+/**
+ * Multiplication instruction: the register res is set to the value of the register a times the register b
+ * @tparam res result register
+ * @tparam a register of first operand
+ * @tparam b register of second operand
+ */
 template<Register res, Register a, Register b>
 struct Mul {};
 
+/**
+ * Multiplication with immediate instruction: the register res is set to the value of the register a times the value b
+ * @tparam T the type of b
+ * @tparam res the result register
+ * @tparam a register of first operand
+ * @tparam b value of the second operand
+ */
 template<typename T, Register res, Register a, T b>
 struct MulI {};
 
+/**
+ * Division instruction: the register res is set to the value of the register a divided the register b.
+ * If the value of the register b is zero a static_assert is triggered and the execution is stopped.
+ * @tparam res result register
+ * @tparam a register of first operand
+ * @tparam b register of second operand
+ */
 template<Register res, Register a, Register b>
 struct Div {};
 
+/**
+ * Division with immediate instruction: the register res is set to the value of the register a divided by the value b.
+ * If the b is zero a static_assert is triggered and the execution is stopped.
+ * @tparam T the type of b
+ * @tparam res the result register
+ * @tparam a register of first operand
+ * @tparam b value of the second operand
+ */
 template<typename T, Register res, Register a, T b>
 struct DivI {};
 
+/**
+ * Binary-And instruction: the register res is set to the value of the binary and of the registers a and b.
+ * @tparam res result register
+ * @tparam a register of first operand
+ * @tparam b register of second operand
+ */
 template<Register res, Register a, Register b>
 struct And {};
 
+/**
+ * Binary-And with immediate instruction: the register res is set to the value of the binary and of the register a and
+ * the value b.
+ * @tparam T the type of b
+ * @tparam res the result register
+ * @tparam a register of first operand
+ * @tparam b value of the second operand
+ */
 template<typename T, Register res, Register a, T b>
 struct AndI {};
 
+/**
+ * Binary-Or instruction: the register res is set to the value of the binary or of the registers a and b.
+ * @tparam res result register
+ * @tparam a register of first operand
+ * @tparam b register of second operand
+ */
 template<Register res, Register a, Register b>
 struct Or {};
 
+/**
+ * Binary-Or with immediate instruction: the register res is set to the value of the binary or of the register a and
+ * the value b.
+ * @tparam T the type of b
+ * @tparam res the result register
+ * @tparam a register of first operand
+ * @tparam b value of the second operand
+ */
 template<typename T, Register res, Register a, T b>
 struct OrI {};
 
+/**
+ * Binary-Exclusive-Or instruction: the register res is set to the value of the binary xor of the registers a and b.
+ * @tparam res result register
+ * @tparam a register of first operand
+ * @tparam b register of second operand
+ */
 template<Register res, Register a, Register b>
 struct XOr {};
 
+/**
+ * Binary-Exclusive Or with immediate instruction: the register res is set to the value of the binary or of the register
+ * a and the value b.
+ * @tparam T the type of b
+ * @tparam res the result register
+ * @tparam a register of first operand
+ * @tparam b value of the second operand
+ */
 template<typename T, Register res, Register a, T b>
 struct XOrI {};
 
