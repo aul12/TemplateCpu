@@ -2,7 +2,7 @@
  * @file instructions.hpp
  * @author paul
  * @date 25.05.20
- * Description here TODO
+ * Implementation of all instructions.
  */
 #ifndef TEMPLATE_CPU_INSTRUCTIONS_HPP
 #define TEMPLATE_CPU_INSTRUCTIONS_HPP
@@ -11,7 +11,14 @@
 #include "instruction_def.hpp"
 #include "instruction_util.hpp"
 
-template<instruction Instr, Registers Registers, Memory Memory, std::size_t PC_>
+/**
+ * Struct used for implementing the different instructions
+ * @tparam instr the instruction to execute
+ * @tparam registers the registers at the start of the execution
+ * @tparam memory the memory at the start of the execution
+ * @tparam old_pc the program counter at the start of the execution
+ */
+template<instruction instr, Registers registers, Memory memory, std::size_t old_pc>
 struct InstrImpl {};
 
 template<Register res, Register a, Register b, Registers registers, Memory memory, std::size_t old_pc>
@@ -312,6 +319,12 @@ struct InstrImpl<LoadI<reg, addr>, registers, memory, old_pc> {
 
 
 // Pseudo instructions
+
+/**
+ * Pseudo instruction for copying the value from a register into another.
+ * @tparam a the register to copy to
+ * @tparam b the register to copy from
+ */
 template<Register a, Register b>
 using Mov = AddI<base_type, a, b, 0>;
 
