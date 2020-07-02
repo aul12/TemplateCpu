@@ -2,7 +2,7 @@
  * @file fib_recursive.hpp
  * @author paul
  * @date 30.06.20
- * Description here TODO
+ * Implementation of an recusrive algorithm for calculating fibonacci numbers, for more details see the README.md
  */
 #ifndef TEMPLATECPU_FIB_RECURSIVE_HPP
 #define TEMPLATECPU_FIB_RECURSIVE_HPP

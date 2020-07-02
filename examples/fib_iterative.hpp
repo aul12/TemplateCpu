@@ -2,7 +2,7 @@
  * @file fib_iterative.hpp
  * @author paul
  * @date 30.06.20
- * Description here TODO
+ * Implementation of an iterative algorithm for calculating fibonacci numbers, for more details see the README.md
  */
 #ifndef TEMPLATECPU_FIB_ITERATIVE_HPP
 #define TEMPLATECPU_FIB_ITERATIVE_HPP

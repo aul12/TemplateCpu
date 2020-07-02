@@ -2,20 +2,13 @@
  * @file turing_machine.hpp
  * @author paul
  * @date 30.06.20
- * Description here TODO
- */
-#ifndef TEMPLATECPU_TURING_MACHINE_HPP
-#define TEMPLATECPU_TURING_MACHINE_HPP
-
-constexpr auto TAPE_SIZE = 16;
-constexpr auto STATE_SIZE = 16;
-constexpr auto SYMBOL_COUNT = 16;
-/*
+ * Implementation of a turing machine in template assembly.
+ *
  * Memory Layout:
  * The first TAPE_SIZE elements are the program (the tape)
  *
  * The next STATE_SIZE * SYMBOL_COUNT elements are the mapping of states and symbols to new symbol,
- * the new state and the head direction (0 is left, 1 is right)
+ * the new state and the head direction (0 is no movement, 1 is left, 2 is right)
  *
  * For a given state t and a symbol y the values can be calculated as:
  * new_symbol = TAPE_SIZE + SYMBOL_COUNT * state * 3 + symbol * 3 + 0
@@ -31,14 +24,21 @@ constexpr auto SYMBOL_COUNT = 16;
  * f is new_state
  * g is head_direction (0: none, 1: left, 2: right)
  *
- * if the next state is 0 the program terminates
+ * if the next state is 0 the program terminates.
  *
- * See: turing_machine.py for the same code in python (slightly more readable). Additionally the python code can generate
- * the correct memory initialization code and offset for the code
+ * See: turing_machine.py for the same code in python (slightly more readable). Additionally the python code can
+ * generate the correct memory initialization instructions and offset for the code.
  */
+#ifndef TEMPLATECPU_TURING_MACHINE_HPP
+#define TEMPLATECPU_TURING_MACHINE_HPP
 
-constexpr auto OFFSET = 23;
+constexpr auto TAPE_SIZE = 16;
+constexpr auto STATE_SIZE = 16;
+constexpr auto SYMBOL_COUNT = 16;
+
 static_assert(TAPE_SIZE + SYMBOL_COUNT * STATE_SIZE * 3 <= MEM_SIZE, "Program is to large!");
+
+constexpr auto OFFSET = 23; // Generated from python script
 
 using turing_machine =
         DeclareProgram<
