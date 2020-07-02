@@ -4,8 +4,8 @@
  * @date 30.06.20
  * Implementation of an iterative algorithm for calculating fibonacci numbers, for more details see the README.md
  */
-#ifndef TEMPLATECPU_FIB_ITERATIVE_HPP
-#define TEMPLATECPU_FIB_ITERATIVE_HPP
+#ifndef TEMPLATE_CPU_FIB_ITERATIVE_HPP
+#define TEMPLATE_CPU_FIB_ITERATIVE_HPP
 
 using fib_iterative =
         DeclareProgram<
@@ -23,4 +23,4 @@ using fib_iterative =
         >;
 
 
-#endif //TEMPLATECPU_FIB_ITERATIVE_HPP
+#endif //TEMPLATE_CPU_FIB_ITERATIVE_HPP

@@ -8,6 +8,7 @@
 #define TEMPLATE_CPU_CPU_TYPES_HPP
 
 #include "config.hpp"
+#include "value_list.hpp"
 
 /**
  * Registers are a value list of base_type type

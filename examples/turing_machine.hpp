@@ -29,8 +29,8 @@
  * See: turing_machine.py for the same code in python (slightly more readable). Additionally the python code can
  * generate the correct memory initialization instructions and offset for the code.
  */
-#ifndef TEMPLATECPU_TURING_MACHINE_HPP
-#define TEMPLATECPU_TURING_MACHINE_HPP
+#ifndef TEMPLATE_CPU_TURING_MACHINE_HPP
+#define TEMPLATE_CPU_TURING_MACHINE_HPP
 
 constexpr auto TAPE_SIZE = 16;
 constexpr auto STATE_SIZE = 16;
@@ -108,4 +108,4 @@ using turing_machine =
 
         >;
 
-#endif //TEMPLATECPU_TURING_MACHINE_HPP
+#endif //TEMPLATE_CPU_TURING_MACHINE_HPP

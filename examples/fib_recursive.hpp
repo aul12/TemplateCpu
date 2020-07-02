@@ -2,10 +2,10 @@
  * @file fib_recursive.hpp
  * @author paul
  * @date 30.06.20
- * Implementation of an recusrive algorithm for calculating fibonacci numbers, for more details see the README.md
+ * Implementation of an recursive algorithm for calculating fibonacci numbers, for more details see the README.md
  */
-#ifndef TEMPLATECPU_FIB_RECURSIVE_HPP
-#define TEMPLATECPU_FIB_RECURSIVE_HPP
+#ifndef TEMPLATE_CPU_FIB_RECURSIVE_HPP
+#define TEMPLATE_CPU_FIB_RECURSIVE_HPP
 
 /*
  * Stack Layout
@@ -61,4 +61,4 @@ using fib_recursive =
             Jump<Register::RET>                                     //30: LABEL_3, return
         >;
 
-#endif //TEMPLATECPU_FIB_RECURSIVE_HPP
+#endif //TEMPLATE_CPU_FIB_RECURSIVE_HPP
