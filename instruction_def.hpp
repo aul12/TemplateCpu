@@ -147,48 +147,133 @@ struct XOr {};
 template<typename T, Register res, Register a, T b>
 struct XOrI {};
 
+/**
+ * Less instruction: the register res is set to 1 of the value in register a is less than the one in register b.
+ * @tparam res result register
+ * @tparam a register of first operand
+ * @tparam b register of second operand
+ */
 template<Register res, Register a, Register b>
 struct Less {};
 
+/**
+ * Less with immediate instruction: the register res is set to 1 of the value in register a is less than the value b.
+ * @tparam T the type of b
+ * @tparam res the result register
+ * @tparam a register of first operand
+ * @tparam b value of the second operand
+ */
 template<typename T, Register res, Register a, T b>
 struct LessI {};
 
+/**
+ * Greater instruction: the register res is set to 1 of the value in register a is greater than the one in register b.
+ * @tparam res result register
+ * @tparam a register of first operand
+ * @tparam b register of second operand
+ */
 template<Register res, Register a, Register b>
 struct Greater {};
 
+/**
+ * Less with immediate instruction: the register res is set to 1 of the value in register a is greater than the value b.
+ * @tparam T the type of b
+ * @tparam res the result register
+ * @tparam a register of first operand
+ * @tparam b value of the second operand
+ */
 template<typename T, Register res, Register a, T b>
 struct GreaterI {};
 
+/**
+ * Jump instruction: sets the program counter to the value in register reg
+ * @tparam reg contains the next program counter
+ */
 template<Register reg>
 struct Jump {};
 
+/**
+ * Jump with immediate instruction: jumps to a fixed program counter address given by val
+ * @tparam T the type of val
+ * @tparam val the next program counter.
+ */
 template<typename T, T val>
 struct JumpI{};
 
+/**
+ * Branch on equal instruction: jumps if the values in register a and b are equal.
+ * @tparam a the first operand of the comparison
+ * @tparam b the second operand of the comparison
+ * @tparam target the register containing the program counter value at which to jump if the values are equal.
+ */
 template<Register a, Register b, Register target>
 struct BranchEq {};
 
+/**
+ * Branch on equal with immediate instruction: jumps if the values in register a and the value b are equal.
+ * @tparam T the type of the target program counter
+ * @tparam a the first operand of the comparison
+ * @tparam b the second operand of the comparison
+ * @tparam target the program counter value at which to jump if the values are equal.
+ */
 template<typename T, Register a, Register b, T target>
 struct BranchEqI {};
 
+/**
+ * Branch on not-equal instruction: jumps if the values in register a and b are not equal.
+ * @tparam a the first operand of the comparison
+ * @tparam b the second operand of the comparison
+ * @tparam target the register containing the program counter value at which to jump if the values are not equal.
+ */
 template<Register a, Register b, Register target>
 struct BranchNEq {};
 
+/**
+ * Branch on not-equal with immediate instruction: jumps if the values in register a and the value b are not equal.
+ * @tparam T the type of the target program counter
+ * @tparam a the first operand of the comparison
+ * @tparam b the second operand of the comparison
+ * @tparam target the program counter value at which to jump if the values are not equal.
+ */
 template<typename T, Register a, Register b, T target>
 struct BranchNEqI {};
 
+/**
+ * Store instruction: Stores the value from a register into memory.
+ * @tparam addr_reg the register containing the address to write to
+ * @tparam reg the register containing the value to write
+ */
 template<Register addr_reg, Register reg>
 struct Store {};
 
-template<Register reg, Register addr_reg>
-struct Load {};
-
+/**
+ * Store with immediate instruction: Stores a value from register into memory.
+ * @tparam addr the address at which to write
+ * @tparam reg the register containing the value
+ */
 template<mem_ptr_type addr, Register reg>
 struct StoreI {};
 
+/**
+ * Load instruction: Loads a value from memory into a register.
+ * @tparam reg the register in which to write
+ * @tparam addr_reg the register containing the address to read from
+ */
+template<Register reg, Register addr_reg>
+struct Load {};
+
+/**
+ * Load with immediate instruction: Loads a value from memory into a register.
+ * @tparam reg the register in which to write
+ * @tparam addr_reg the address to read from
+ */
 template<Register reg, mem_ptr_type addr>
 struct LoadI {};
 
+/**
+ * Struct used for defining if a type is an instruction.
+ * @tparam T the type to check
+ */
 template<typename T>
 struct is_instruction {
     static constexpr bool val = false;
@@ -334,7 +419,10 @@ struct is_instruction<JumpI<T, reg>> {
     static constexpr bool val = true;
 };
 
-
+/**
+ * Concept declaring an instruction, that is one of the types listed above.
+ * @tparam T the type to check
+ */
 template<typename T>
 concept instruction = is_instruction<T>::val;
 
