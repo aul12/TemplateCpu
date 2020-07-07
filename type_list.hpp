@@ -41,7 +41,7 @@ struct IsTypeList {
 
 /**
  * Specialization of IsTypeList for TypeListElem
- * @see ISTypeList
+ * @see IsTypeList
  * @see TypeListElem
  */
 template<typename T, typename next>
@@ -51,7 +51,7 @@ struct IsTypeList<TypeListElem<T, next>> {
 
 /**
  * Specialization of IsTypeList for ListEnd
- * @see ISTypeList
+ * @see IsTypeList
  * @see TypeListElem
  */
 template<>
@@ -111,9 +111,9 @@ struct SetType {
     using type = TypeListElem<typename list::elem, typename SetType<T, typename list::next, index - 1>::type>;
 };
 
-template<typename T, TypeList l>
-struct SetType<T, l, 0> {
-    using type = TypeListElem<T, typename l::next>;
+template<typename T, TypeList list>
+struct SetType<T, list, 0> {
+    using type = TypeListElem<T, typename list::next>;
 };
 
 /**
