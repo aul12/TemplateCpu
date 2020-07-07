@@ -20,7 +20,7 @@ concept Program = IsTypeList<T>::val;
  * Alias for declaring a program using a variadic template.
  * @tparam instructions the instructions
  */
-template<instruction ... instructions>
+template<Instruction ... instructions>
 using DeclareProgram = typename FromVariadicType<instructions...>::type;
 
 /**
@@ -41,7 +41,7 @@ struct Result {
 };
 
 /**
- * Struct used for fetching the instruction and running the instruction on the current state.
+ * Struct used for fetching the Instruction and running the Instruction on the current state.
  * @tparam program the program
  * @tparam old_pc the old/current program counter
  * @tparam registers the registers

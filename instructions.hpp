@@ -13,12 +13,12 @@
 
 /**
  * Struct used for implementing the different instructions
- * @tparam instr the instruction to execute
+ * @tparam instr the Instruction to execute
  * @tparam registers the registers at the start of the execution
  * @tparam memory the memory at the start of the execution
  * @tparam old_pc the program counter at the start of the execution
  */
-template<instruction instr, Registers registers, Memory memory, std::size_t old_pc>
+template<Instruction instr, Registers registers, Memory memory, std::size_t old_pc>
 struct InstrImpl {};
 
 template<Register res, Register a, Register b, Registers registers, Memory memory, std::size_t old_pc>
@@ -321,7 +321,7 @@ struct InstrImpl<LoadI<reg, addr>, registers, memory, old_pc> {
 // Pseudo instructions
 
 /**
- * Pseudo instruction for copying the value from a register into another.
+ * Pseudo Instruction for copying the value from a register into another.
  * @tparam a the register to copy to
  * @tparam b the register to copy from
  */

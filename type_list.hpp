@@ -1,5 +1,5 @@
 /**
- * @file type_list.hpp
+ * @file TypeList.hpp
  * @author paul
  * @date 25.05.20
  * Header used for the declaration of the type list and all related structs and concepts.
@@ -13,10 +13,10 @@
 /**
  * Declaration of the type used for elements of a type list, which is a singly linked list.
  * @tparam T the type (i.e. element) at the current position
- * @tparam next_ the next element. Should be of type Type or ListEnd.
+ * @tparam next_ the next element. Should be of type TypeListElem or ListEnd.
  */
 template<typename T, typename next_>
-struct Type {
+struct TypeListElem {
     using elem = T;
     using next = next_;
 };
@@ -27,10 +27,10 @@ struct Type {
  */
 struct ListEnd {};
 
-// List concepts
+// list concepts
 
 /**
- * Struct for specifying if a type is type list, i.e. if it is either a instantiation of Type or ListEnd.
+ * Struct for specifying if a type is type list, i.e. if it is either a instantiation of TypeListElem or ListEnd.
  * This is the general type which is always false, for the correct types the struct is specialized.
  * @tparam T the type to check
  */
@@ -40,19 +40,19 @@ struct IsTypeList {
 };
 
 /**
- * Specialization of IsTypeList for Type
+ * Specialization of IsTypeList for TypeListElem
  * @see ISTypeList
- * @see Type
+ * @see TypeListElem
  */
 template<typename T, typename next>
-struct IsTypeList<Type<T, next>> {
+struct IsTypeList<TypeListElem<T, next>> {
     static constexpr bool val = true;
 };
 
 /**
  * Specialization of IsTypeList for ListEnd
  * @see ISTypeList
- * @see Type
+ * @see TypeListElem
  */
 template<>
 struct IsTypeList<ListEnd> {
@@ -65,17 +65,17 @@ struct IsTypeList<ListEnd> {
  * @tparam T the type to check
  */
 template<typename T>
-concept type_list = IsTypeList<T>::val;
+concept TypeList = IsTypeList<T>::val;
 
 // Helper functions
 
 /**
  * Returns the size / length of the list
- * @tparam List the list to use
+ * @tparam list the list to use
  */
-template<type_list List>
+template<TypeList list>
 struct Size {
-    static constexpr std::size_t val = Size<typename List::next>::val + 1;
+    static constexpr std::size_t val = Size<typename list::next>::val + 1;
 };
 
 template<>
@@ -85,46 +85,46 @@ struct Size<ListEnd> {
 
 /**
  * Get the type at an index
- * @tparam List the list
+ * @tparam list the list
  * @tparam index the index needs to be less than the size of the list
  */
-template<type_list List, std::size_t index>
+template<TypeList list, std::size_t index>
 struct GetType {
-    static_assert(index < Size<List>::val, "GetType out of bounds");
-    using type = typename GetType<typename List::next, index - 1>::type;
+    static_assert(index < Size<list>::val, "GetType out of bounds");
+    using type = typename GetType<typename list::next, index - 1>::type;
 };
 
-template<type_list List>
-struct GetType<List, 0> {
-    using type = typename List::elem;
+template<TypeList list>
+struct GetType<list, 0> {
+    using type = typename list::elem;
 };
 
 /**
  * Set the type at an index, a new, modified, list is returned
  * @tparam T the type to insert
- * @tparam List the list in which to insert
+ * @tparam list the list in which to insert
  * @tparam index the index at which to insert needs to be less than the size of the list
  */
-template<typename T, type_list List, std::size_t index>
+template<typename T, TypeList list, std::size_t index>
 struct SetType {
-    static_assert(index < Size<List>::val, "SetType out of bounds");
-    using type = Type<typename List::elem, typename SetType<T, typename List::next, index - 1>::type>;
+    static_assert(index < Size<list>::val, "SetType out of bounds");
+    using type = TypeListElem<typename list::elem, typename SetType<T, typename list::next, index - 1>::type>;
 };
 
-template<typename T, type_list List>
-struct SetType<T, List, 0> {
-    using type = Type<T, typename List::next>;
+template<typename T, TypeList l>
+struct SetType<T, l, 0> {
+    using type = TypeListElem<T, typename l::next>;
 };
 
 /**
  * Check if an list contains a certain type
  * @tparam T the to find
- * @tparam List the list in which to search
+ * @tparam list the list in which to search
  */
-template<typename T, type_list List>
+template<typename T, TypeList list>
 struct ContainsType {
     static constexpr auto val =
-            std::is_same<T, typename List::elem>::value || ContainsType<T, typename List::next>::val;
+            std::is_same<T, typename list::elem>::value || ContainsType<T, typename list::next>::val;
 };
 
 template<typename T>
@@ -139,12 +139,12 @@ struct ContainsType<T, ListEnd> {
  */
 template<typename T, typename ...Ts>
 struct FromVariadicType {
-    using type = Type<T, typename FromVariadicType<Ts...>::type>;
+    using type = TypeListElem<T, typename FromVariadicType<Ts...>::type>;
 };
 
 template<typename T>
 struct FromVariadicType<T> {
-    using type = Type<T, ListEnd>;
+    using type = TypeListElem<T, ListEnd>;
 };
 
 /**
@@ -154,7 +154,7 @@ struct FromVariadicType<T> {
  */
 template<std::size_t N, typename T>
 struct FillType {
-    using type = Type<T, typename FillType<N-1, T>::type>;
+    using type = TypeListElem<T, typename FillType<N - 1, T>::type>;
 };
 
 template<typename T>

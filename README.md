@@ -2,7 +2,7 @@
 Implementing a CPU emulator using C++ Meta Programming with Concepts.
 The emulator can execute arbitrary programs written in Template-assembly (which
 is the C++ type system), under the limitations of the compiler.
-This proves the turing-completeness of the C++-Type-System.
+This proves the turing-completeness of the C++-TypeListElem-System.
 
 ## Build Instructions
 ### Compiler
@@ -27,7 +27,7 @@ below for more information on Template-Assembly.
 ### Instructions
 Below are all supported instructions, for most instructions there is also
 an Immediate version, denoted by an "I" at the end (so Add-Immediate is `AddI`),
-which takes a constant literal instead of a register as (last) argument. The full declaration of all instruction
+which takes a constant literal instead of a register as (last) argument. The full declaration of all Instruction
 with a more detailed explanation can be found in `instruction_def.hpp`.
 
 | Name        | Description                          | Arguments        | C++-Equivalent            |

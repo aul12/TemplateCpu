@@ -10,7 +10,7 @@
 #include "config.hpp"
 
 /**
- * Addition instruction: the register res is set to the value of the register a plus the value of register b
+ * Addition Instruction: the register res is set to the value of the register a plus the value of register b
  * @tparam res result register
  * @tparam a register of first operand
  * @tparam b register of second operand
@@ -19,7 +19,7 @@ template<Register res, Register a, Register b>
 struct Add {};
 
 /**
- * Addition with immediate instruction: the register res is set to the value of the register a plus the value b
+ * Addition with immediate Instruction: the register res is set to the value of the register a plus the value b
  * @tparam T the type of b
  * @tparam res the result register
  * @tparam a register of first operand
@@ -29,7 +29,7 @@ template<typename T, Register res, Register a, T b>
 struct AddI {};
 
 /**
- * Subtraction instruction: the register res is set to the value of the register a minus the register b
+ * Subtraction Instruction: the register res is set to the value of the register a minus the register b
  * @tparam res result register
  * @tparam a register of first operand
  * @tparam b register of second operand
@@ -38,7 +38,7 @@ template<Register res, Register a, Register b>
 struct Sub {};
 
 /**
- * Subtraction with immediate instruction: the register res is set to the value of the register a minus the value b
+ * Subtraction with immediate Instruction: the register res is set to the value of the register a minus the value b
  * @tparam T the type of b
  * @tparam res the result register
  * @tparam a register of first operand
@@ -48,7 +48,7 @@ template<typename T, Register res, Register a, T b>
 struct SubI {};
 
 /**
- * Multiplication instruction: the register res is set to the value of the register a times the register b
+ * Multiplication Instruction: the register res is set to the value of the register a times the register b
  * @tparam res result register
  * @tparam a register of first operand
  * @tparam b register of second operand
@@ -57,7 +57,7 @@ template<Register res, Register a, Register b>
 struct Mul {};
 
 /**
- * Multiplication with immediate instruction: the register res is set to the value of the register a times the value b
+ * Multiplication with immediate Instruction: the register res is set to the value of the register a times the value b
  * @tparam T the type of b
  * @tparam res the result register
  * @tparam a register of first operand
@@ -67,7 +67,7 @@ template<typename T, Register res, Register a, T b>
 struct MulI {};
 
 /**
- * Division instruction: the register res is set to the value of the register a divided the register b.
+ * Division Instruction: the register res is set to the value of the register a divided the register b.
  * If the value of the register b is zero a static_assert is triggered and the execution is stopped.
  * @tparam res result register
  * @tparam a register of first operand
@@ -77,7 +77,7 @@ template<Register res, Register a, Register b>
 struct Div {};
 
 /**
- * Division with immediate instruction: the register res is set to the value of the register a divided by the value b.
+ * Division with immediate Instruction: the register res is set to the value of the register a divided by the value b.
  * If the b is zero a static_assert is triggered and the execution is stopped.
  * @tparam T the type of b
  * @tparam res the result register
@@ -88,7 +88,7 @@ template<typename T, Register res, Register a, T b>
 struct DivI {};
 
 /**
- * Binary-And instruction: the register res is set to the value of the binary and of the registers a and b.
+ * Binary-And Instruction: the register res is set to the value of the binary and of the registers a and b.
  * @tparam res result register
  * @tparam a register of first operand
  * @tparam b register of second operand
@@ -97,7 +97,7 @@ template<Register res, Register a, Register b>
 struct And {};
 
 /**
- * Binary-And with immediate instruction: the register res is set to the value of the binary and of the register a and
+ * Binary-And with immediate Instruction: the register res is set to the value of the binary and of the register a and
  * the value b.
  * @tparam T the type of b
  * @tparam res the result register
@@ -108,7 +108,7 @@ template<typename T, Register res, Register a, T b>
 struct AndI {};
 
 /**
- * Binary-Or instruction: the register res is set to the value of the binary or of the registers a and b.
+ * Binary-Or Instruction: the register res is set to the value of the binary or of the registers a and b.
  * @tparam res result register
  * @tparam a register of first operand
  * @tparam b register of second operand
@@ -117,7 +117,7 @@ template<Register res, Register a, Register b>
 struct Or {};
 
 /**
- * Binary-Or with immediate instruction: the register res is set to the value of the binary or of the register a and
+ * Binary-Or with immediate Instruction: the register res is set to the value of the binary or of the register a and
  * the value b.
  * @tparam T the type of b
  * @tparam res the result register
@@ -128,7 +128,7 @@ template<typename T, Register res, Register a, T b>
 struct OrI {};
 
 /**
- * Binary-Exclusive-Or instruction: the register res is set to the value of the binary xor of the registers a and b.
+ * Binary-Exclusive-Or Instruction: the register res is set to the value of the binary xor of the registers a and b.
  * @tparam res result register
  * @tparam a register of first operand
  * @tparam b register of second operand
@@ -137,7 +137,7 @@ template<Register res, Register a, Register b>
 struct XOr {};
 
 /**
- * Binary-Exclusive Or with immediate instruction: the register res is set to the value of the binary or of the register
+ * Binary-Exclusive Or with immediate Instruction: the register res is set to the value of the binary or of the register
  * a and the value b.
  * @tparam T the type of b
  * @tparam res the result register
@@ -148,7 +148,7 @@ template<typename T, Register res, Register a, T b>
 struct XOrI {};
 
 /**
- * Less instruction: the register res is set to 1 of the value in register a is less than the one in register b.
+ * Less Instruction: the register res is set to 1 of the value in register a is less than the one in register b.
  * @tparam res result register
  * @tparam a register of first operand
  * @tparam b register of second operand
@@ -157,7 +157,7 @@ template<Register res, Register a, Register b>
 struct Less {};
 
 /**
- * Less with immediate instruction: the register res is set to 1 of the value in register a is less than the value b.
+ * Less with immediate Instruction: the register res is set to 1 of the value in register a is less than the value b.
  * @tparam T the type of b
  * @tparam res the result register
  * @tparam a register of first operand
@@ -167,7 +167,7 @@ template<typename T, Register res, Register a, T b>
 struct LessI {};
 
 /**
- * Greater instruction: the register res is set to 1 of the value in register a is greater than the one in register b.
+ * Greater Instruction: the register res is set to 1 of the value in register a is greater than the one in register b.
  * @tparam res result register
  * @tparam a register of first operand
  * @tparam b register of second operand
@@ -176,7 +176,7 @@ template<Register res, Register a, Register b>
 struct Greater {};
 
 /**
- * Less with immediate instruction: the register res is set to 1 of the value in register a is greater than the value b.
+ * Less with immediate Instruction: the register res is set to 1 of the value in register a is greater than the value b.
  * @tparam T the type of b
  * @tparam res the result register
  * @tparam a register of first operand
@@ -186,14 +186,14 @@ template<typename T, Register res, Register a, T b>
 struct GreaterI {};
 
 /**
- * Jump instruction: sets the program counter to the value in register reg
+ * Jump Instruction: sets the program counter to the value in register reg
  * @tparam reg contains the next program counter
  */
 template<Register reg>
 struct Jump {};
 
 /**
- * Jump with immediate instruction: jumps to a fixed program counter address given by val
+ * Jump with immediate Instruction: jumps to a fixed program counter address given by val
  * @tparam T the type of val
  * @tparam val the next program counter.
  */
@@ -201,7 +201,7 @@ template<typename T, T val>
 struct JumpI{};
 
 /**
- * Branch on equal instruction: jumps if the values in register a and b are equal.
+ * Branch on equal Instruction: jumps if the values in register a and b are equal.
  * @tparam a the first operand of the comparison
  * @tparam b the second operand of the comparison
  * @tparam target the register containing the program counter value at which to jump if the values are equal.
@@ -210,7 +210,7 @@ template<Register a, Register b, Register target>
 struct BranchEq {};
 
 /**
- * Branch on equal with immediate instruction: jumps if the values in register a and the value b are equal.
+ * Branch on equal with immediate Instruction: jumps if the values in register a and the value b are equal.
  * @tparam T the type of the target program counter
  * @tparam a the first operand of the comparison
  * @tparam b the second operand of the comparison
@@ -220,7 +220,7 @@ template<typename T, Register a, Register b, T target>
 struct BranchEqI {};
 
 /**
- * Branch on not-equal instruction: jumps if the values in register a and b are not equal.
+ * Branch on not-equal Instruction: jumps if the values in register a and b are not equal.
  * @tparam a the first operand of the comparison
  * @tparam b the second operand of the comparison
  * @tparam target the register containing the program counter value at which to jump if the values are not equal.
@@ -229,7 +229,7 @@ template<Register a, Register b, Register target>
 struct BranchNEq {};
 
 /**
- * Branch on not-equal with immediate instruction: jumps if the values in register a and the value b are not equal.
+ * Branch on not-equal with immediate Instruction: jumps if the values in register a and the value b are not equal.
  * @tparam T the type of the target program counter
  * @tparam a the first operand of the comparison
  * @tparam b the second operand of the comparison
@@ -239,7 +239,7 @@ template<typename T, Register a, Register b, T target>
 struct BranchNEqI {};
 
 /**
- * Store instruction: Stores the value from a register into memory.
+ * Store Instruction: Stores the value from a register into memory.
  * @tparam addr_reg the register containing the address to write to
  * @tparam reg the register containing the value to write
  */
@@ -247,7 +247,7 @@ template<Register addr_reg, Register reg>
 struct Store {};
 
 /**
- * Store with immediate instruction: Stores a value from register into memory.
+ * Store with immediate Instruction: Stores a value from register into memory.
  * @tparam addr the address at which to write
  * @tparam reg the register containing the value
  */
@@ -255,7 +255,7 @@ template<mem_ptr_type addr, Register reg>
 struct StoreI {};
 
 /**
- * Load instruction: Loads a value from memory into a register.
+ * Load Instruction: Loads a value from memory into a register.
  * @tparam reg the register in which to write
  * @tparam addr_reg the register containing the address to read from
  */
@@ -263,7 +263,7 @@ template<Register reg, Register addr_reg>
 struct Load {};
 
 /**
- * Load with immediate instruction: Loads a value from memory into a register.
+ * Load with immediate Instruction: Loads a value from memory into a register.
  * @tparam reg the register in which to write
  * @tparam addr_reg the address to read from
  */
@@ -271,7 +271,7 @@ template<Register reg, mem_ptr_type addr>
 struct LoadI {};
 
 /**
- * Struct used for defining if a type is an instruction.
+ * Struct used for defining if a type is an Instruction.
  * @tparam T the type to check
  */
 template<typename T>
@@ -420,10 +420,10 @@ struct is_instruction<JumpI<T, reg>> {
 };
 
 /**
- * Concept declaring an instruction, that is one of the types listed above.
+ * Concept declaring an Instruction, that is one of the types listed above.
  * @tparam T the type to check
  */
 template<typename T>
-concept instruction = is_instruction<T>::val;
+concept Instruction = is_instruction<T>::val;
 
 #endif //TEMPLATE_CPU_INSTRUCTION_DEF_HPP
