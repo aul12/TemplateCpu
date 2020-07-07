@@ -66,10 +66,10 @@ using my_program =
 
 int main() {
     using result = Cpu<my_program>::run;
-    using printer = printer<result::Reg, result::Mem>;
+    using printer = printer<result::reg, result::mem>;
 
     if constexpr (result::is_breakpoint) {
-        std::cout << "Stopped at breakpoint (PC=" << result::PC << ")" << std::endl;
+        std::cout << "Stopped at breakpoint (pc=" << result::pc << ")" << std::endl;
     }
 
     std::cout << "Executed " << result::instr_count << " instructions\n" << std::endl;

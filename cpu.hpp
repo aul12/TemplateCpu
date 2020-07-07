@@ -33,9 +33,9 @@ using DeclareProgram = typename FromVariadicType<instructions...>::type;
  */
 template<Registers registers, Memory memory, std::size_t PC_, std::size_t instr_count_, bool breakpoint>
 struct Result {
-    using Reg = registers;
-    using Mem = memory;
-    static constexpr auto PC = PC_;
+    using reg = registers;
+    using mem = memory;
+    static constexpr auto pc = PC_;
     static constexpr auto instr_count = instr_count_;
     static constexpr auto is_breakpoint = breakpoint;
 };
@@ -49,9 +49,9 @@ struct Result {
  */
 template<Program program, std::size_t old_pc, Registers registers, Memory memory>
 struct ExecuteInstr {
-    static constexpr auto PC = InstrImpl<typename GetType<program, old_pc>::type, registers, memory, old_pc>::PC;
-    using Reg = typename InstrImpl<typename GetType<program, old_pc>::type, registers, memory, old_pc>::Reg;
-    using Mem = typename InstrImpl<typename GetType<program, old_pc>::type, registers, memory, old_pc>::Mem;
+    static constexpr auto pc = InstrImpl<typename GetType<program, old_pc>::type, registers, memory, old_pc>::pc;
+    using reg = typename InstrImpl<typename GetType<program, old_pc>::type, registers, memory, old_pc>::reg;
+    using mem = typename InstrImpl<typename GetType<program, old_pc>::type, registers, memory, old_pc>::mem;
 };
 
 /**
@@ -69,9 +69,9 @@ struct CpuState {
     using val = typename CpuState<
                             program,
                             size,
-                            ExecuteInstr<program, PC, registers, memory>::PC,
-                            typename ExecuteInstr<program, PC, registers, memory>::Reg,
-                            typename ExecuteInstr<program, PC, registers, memory>::Mem,
+                            ExecuteInstr<program, PC, registers, memory>::pc,
+                            typename ExecuteInstr<program, PC, registers, memory>::reg,
+                            typename ExecuteInstr<program, PC, registers, memory>::mem,
                             instr_count + 1,
                             max_instructions
                         >::val;

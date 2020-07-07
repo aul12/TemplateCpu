@@ -9,7 +9,7 @@
 
 /**
  * Get the next program counter used for conditional jumps.
- * @tparam cond if the bool is false PC+1 is returned, else target is returned
+ * @tparam cond if the bool is false pc+1 is returned, else target is returned
  * @tparam PC the program counter for the if case
  * @tparam target the program counter for the else case
  */
