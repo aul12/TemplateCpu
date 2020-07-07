@@ -4,10 +4,10 @@
  * @date 30.06.20
  * Implementation of a turing machine in template assembly.
  *
- * Memory Layout:
+ * Memory layout:
  * The first TAPE_SIZE elements are the program (the tape)
  *
- * The next STATE_SIZE * SYMBOL_COUNT elements are the mapping of states and symbols to new symbol,
+ * The next STATE_SIZE * SYMBOL_COUNT * 3 elements are the mapping of states and symbols to new symbol,
  * the new state and the head direction (0 is no movement, 1 is left, 2 is right)
  *
  * For a given state t and a symbol y the values can be calculated as:
@@ -15,6 +15,7 @@
  * new_state = TAPE_SIZE + SYMBOL_COUNT * state * 3 + symbol * 3 + 1
  * head_direction = TAPE_SIZE + SYMBOL_COUNT * state * 3 + symbol * 3 + 2
  *
+ * Register layout:
  * a is the current state
  * b is the index on the tape
  *
