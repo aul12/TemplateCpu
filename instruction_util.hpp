@@ -7,6 +7,8 @@
 #ifndef TEMPLATE_CPU_INSTRUCTION_UTIL_HPP
 #define TEMPLATE_CPU_INSTRUCTION_UTIL_HPP
 
+#include <cstddef>
+
 /**
  * Get the next program counter used for conditional jumps.
  * @tparam cond if the bool is false pc+1 is returned, else target is returned

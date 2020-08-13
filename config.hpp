@@ -7,8 +7,7 @@
 #ifndef TEMPLATE_CPU_CONFIG_HPP
 #define TEMPLATE_CPU_CONFIG_HPP
 
-#include "value_list.hpp"
-#include "type_list.hpp"
+#include <cstddef>
 
 using base_type = int; ///< The type used for registers and memory
 using mem_ptr_type = std::size_t; ///< The type used for enumerating addresses in the memory

@@ -7,6 +7,8 @@
 #ifndef TEMPLATE_CPU_FIB_RECURSIVE_HPP
 #define TEMPLATE_CPU_FIB_RECURSIVE_HPP
 
+#include "../cpu.hpp"
+
 /*
  * Stack Layout
  * STACK_PTR, RET, ARG, RES1 = FIB(ARG-1), ...

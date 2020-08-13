@@ -33,6 +33,8 @@
 #ifndef TEMPLATE_CPU_TURING_MACHINE_HPP
 #define TEMPLATE_CPU_TURING_MACHINE_HPP
 
+#include "../cpu.hpp"
+
 constexpr auto TAPE_SIZE = 16;
 constexpr auto STATE_SIZE = 16;
 constexpr auto SYMBOL_COUNT = 16;

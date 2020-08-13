@@ -117,22 +117,6 @@ struct SetType<T, list, 0> {
 };
 
 /**
- * Check if an list contains a certain type
- * @tparam T the to find
- * @tparam list the list in which to search
- */
-template<typename T, TypeList list>
-struct ContainsType {
-    static constexpr auto val =
-            std::is_same<T, typename list::elem>::value || ContainsType<T, typename list::next>::val;
-};
-
-template<typename T>
-struct ContainsType<T, ListEnd> {
-    static constexpr auto val = false;
-};
-
-/**
  * Create a list from a variadic type list.
  * @tparam T the first type
  * @tparam Ts the following types

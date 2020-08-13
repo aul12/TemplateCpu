@@ -7,6 +7,8 @@
 #ifndef TEMPLATE_CPU_FIB_ITERATIVE_HPP
 #define TEMPLATE_CPU_FIB_ITERATIVE_HPP
 
+#include "../cpu.hpp"
+
 using fib_iterative =
         DeclareProgram<
             AddI<int, Register::A, Register::ZERO, 40>,// 0: a = 40

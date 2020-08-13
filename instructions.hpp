@@ -7,6 +7,7 @@
 #ifndef TEMPLATE_CPU_INSTRUCTIONS_HPP
 #define TEMPLATE_CPU_INSTRUCTIONS_HPP
 
+#include "config.hpp"
 #include "cpu_types.hpp"
 #include "instruction_def.hpp"
 #include "instruction_util.hpp"

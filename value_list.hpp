@@ -107,18 +107,6 @@ struct SetVal {
 };
 
 /**
- * Check if value list contains a value. Be careful, the types need to be identical as well. For example
- * 0 of type int is not equal to 0 of type short, long, char, unsigned, float, double...
- * @tparam T the type of the value
- * @tparam val_ the value to find
- * @tparam list the list
- */
-template<typename T, T val_, ValueList list>
-struct ContainsVal {
-    static constexpr auto val = ContainsType<ValueContainer<T, val_>, list>::val;
-};
-
-/**
  * Create a value list of a single type of a variadic list of values.
  * @tparam T the type to use
  * @tparam t the first value
